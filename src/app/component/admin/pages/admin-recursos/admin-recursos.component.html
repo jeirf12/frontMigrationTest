@@ -1,0 +1,6 @@
+<div class="recursos-container">
+    <div class="item-menu" *ngFor="let item of menuItems" (click)="navigate(item.id)">
+        <fa-icon [icon]="item.icon"></fa-icon>
+        <h6>{{item.title}}</h6>
+    </div>
+</div>

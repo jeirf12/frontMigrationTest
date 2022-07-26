@@ -1,0 +1,13 @@
+<h6 class="report-title">{{'Reporte ' + dataChart.title}}</h6>
+<div style="display: block;" *ngIf="!dataChart.empty" [ngSwitch]="dataChart.chartType" style="margin-bottom: 1.5rem;">
+    <canvas baseChart *ngSwitchCase="'doughnut'" [legend]="true" [chartType]="dataChart.chartType"
+        [labels]="dataChart.labels" [data]="dataChart.multiDataSet" [colors]="dataChart.colors">
+    </canvas>
+    <canvas baseChart *ngSwitchDefault [legend]="false" [chartType]="dataChart.chartType" [labels]="dataChart.labels"
+        [datasets]="dataChart.chartDataSets" [colors]="dataChart.colors" [options]="dataChart.options">
+    </canvas>
+</div>
+<div class="empty-msg" *ngIf="dataChart.empty" style="margin-bottom: 1.5rem;">
+    <fa-icon [icon]="faChartBar"> </fa-icon>
+    <h6>No hay datos para mostrar</h6>
+</div>

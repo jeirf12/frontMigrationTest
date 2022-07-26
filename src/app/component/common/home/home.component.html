@@ -1,0 +1,106 @@
+<div id="background"></div>
+<div id="footer">
+    <p>Calle 5 No. 4 - 70 Tel. (572) 8209900 - Línea 018000 949020 - Popayán | Colombia</p>
+    <p>Gimnasio Hora Saludable: Sector Tulcán - Popayán</p>
+</div>
+<div class="home-container">
+    <div class="home-header">
+        <a class="logoU" href="http://www.unicauca.edu.co"></a>
+        <p>Estilos de Vida Saludable</p>
+        <button (click)="goToLogin()" class="btn btn-primary btn-sm">Iniciar sesion</button>
+    </div>
+    <div class="home-content">
+        <ngb-tabset>
+            <ngb-tab title="Inicio">
+                <ng-template ngbTabContent>
+                    <div class="tab">
+                        <div class="component component-complete">
+                            <h6>Eventos</h6>
+                            <ngb-carousel interval="20000" [pauseOnHover]="true" style="width: 60%;">
+                                <ng-template ngbSlide *ngIf="eventosList.length == 0">
+                                    <img class="imagen-header" class="event-new-img"
+                                        src="./assets/img/evento_default.png">
+                                    <div class="carousel-caption">
+                                        <p>No hay eventos</p>
+                                    </div>
+                                </ng-template>
+                                <ng-template ngbSlide *ngFor="let item of eventosList">
+                                    <img class="imagen-header" class="event-new-img" (click)="viewEvento(item)"
+                                        [src]="item.imagen ? geturlImagen(item) : './assets/img/evento_default.png'">
+                                    <div class="carousel-caption" (click)="viewEvento(item)">
+                                        <p>{{item.titulo}}</p>
+                                    </div>
+                                </ng-template>
+                            </ngb-carousel>
+                        </div>
+                        <div class="component">
+                            <h6>Noticias</h6>
+                            <ngb-carousel interval="20000" [pauseOnHover]="true">
+                                <ng-template ngbSlide *ngIf="noticiasList.length == 0">
+                                    <img class="imagen-header" class="event-new-img"
+                                        src="./assets/img/noticia_default.png">
+                                    <div class="carousel-caption">
+                                        <p>No hay noticias</p>
+                                    </div>
+                                </ng-template>
+                                <ng-template ngbSlide *ngFor="let item of noticiasList">
+                                    <img class="imagen-header" class="event-new-img" (click)="viewNoticia(item)"
+                                        [src]="item.imagen ? geturlImagen(item) : './assets/img/noticia_default.png'">
+                                    <div class="carousel-caption" (click)="viewNoticia(item)">
+                                        <p>{{item.titulo}}</p>
+                                    </div>
+                                </ng-template>
+                            </ngb-carousel>
+                        </div>
+                        <div class="component">
+                            <h6>Horarios</h6>
+                            <p>La participación en el Programa Hora Saludable exige cumplir con los horarios
+                                establecidos y salir puntual y regularmente a las prácticas deportivas y recreativas
+                                durante cada sesión completa de dos horas, lo cual sera verificado por el funcionario
+                                responsable de la División organizadora.</p>
+                            <button class="btn btn-primary btn-sm" *ngIf="currentHorario"
+                                (click)="showCurrentHorario()">Ver Horario</button>
+
+                        </div>
+                    </div>
+                </ng-template>
+
+            </ngb-tab>
+            <ngb-tab title="Quienes somos">
+                <ng-template ngbTabContent>
+                    <div class="tab">
+                        <div class="component">
+                            <h6>Misión</h6>
+                            <p>El programa Hora Saludable busca fomentar y generar dinámicas y procesos que favorezcan
+                                el desarrollo consciente de la motricidad humana orientada hacia hábitos y estilos de
+                                vida saludables a traves de la recreacion y el deporte.</p>
+                        </div>
+                        <div class="component">
+                            <h6>Visión</h6>
+                            <p>El programa Hora Saludable busca﻿ desarrollar y consolidar una cultura institucional del
+                                auto cuidado de la salud, a través de la recreación y el deporte, fundamentada en la
+                                participación activa, pacífica, responsable y autónoma de los estamentos universitarios.
+                            </p>
+                        </div>
+                        <div class="component">
+                            <h6>Responsables</h6>
+                            <p>Division de Gestión de la Recreación y el Deporte</p>
+                            <p>Nairo Burbano Sánchez</p>
+                        </div>
+                        <div class="component">
+                            <h6>Documentos</h6>
+                            <a href="./assets/doc/ReglamentoHoraSaludable.pdf" target="_blank">Reglamento</a>
+                            <a href="./assets/doc/Resolución R-166 de 2002 Hora saludable.pdf"
+                                target="_blank">Resolución R-166 de 2002</a>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <!-- <ngb-tab title="Acerca de">
+                <ng-template ngbTabContent>
+                    <p>Because default values have been customized.</p>
+                </ng-template>
+            </ngb-tab> -->
+        </ngb-tabset>
+    </div>
+</div>

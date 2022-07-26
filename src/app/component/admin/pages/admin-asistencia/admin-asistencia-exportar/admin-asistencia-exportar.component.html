@@ -1,0 +1,284 @@
+<div class="container-fluid" *ngIf="gruposList.length > 0">
+    <div class="row">
+        <p class="mx-5">Para descargar el reporte anual de asistencia por favor selecciona el año y despues el grupo</p>
+    </div>
+
+    <div class="row">
+        <div class="col-3 ml-5">
+            <div class="form-group">
+                <label for="grupo">Selecciona el grupo</label>
+                <select id="grupo" class="form-control form-control-sm" [(ngModel)]="grupoIndex"
+                    [ngModelOptions]="{standalone: true}" (change)="loadReporte()">
+                    <option selected [value]="i" *ngFor="let item of gruposList; let i=index">
+                        {{item.nombre}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group">
+                <label for="horarios">Horarios de {{gruposList[grupoIndex].nombre}}</label>
+                <p *ngFor="let horario of gruposList[grupoIndex].horariosList" class="horario">
+                    {{getHorarioCompleto(horario)}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-3 ml-5">
+            <div class="form-group">
+                <label for="tipoDocumento">Tipo de reporte</label>
+                <select id="tipoDocumento" class="form-control form-control-sm" [(ngModel)]="tipoReporte"
+                    (change)="onTipoReporteChange()" [ngModelOptions]="{standalone: true}">
+                    <option selected value="Anual"> Anual</option>
+                    <option value="Semestral"> Semestral</option>
+                    <option value="Mensual"> Mensual</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-3" *ngIf="tipoReporte == 'Anual'">
+            <div class="form-group">
+                <label for="tipoDocumento">Selecciona el año</label>
+                <select id="tipoDocumento" class="form-control form-control-sm" [(ngModel)]="year"
+                    [ngModelOptions]="{standalone: true}" (change)="loadReporte()">
+                    <option selected [value]="item" *ngFor="let item of years">
+                        {{item}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-3" *ngIf="tipoReporte == 'Semestral'">
+            <div class="form-group">
+                <label for="tipoDocumento">Selecciona el semestre</label>
+                <select id="tipoDocumento" class="form-control form-control-sm" (change)="loadReporte()"
+                    [(ngModel)]="semester" [ngModelOptions]="{standalone: true}">
+                    <option selected [value]="item" *ngFor="let item of semesters">
+                        {{item}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col pt-3" *ngIf="tipoReporte == 'Mensual'">
+            <button class="btn btn-sm btn-primary"
+                (click)="showMonthPicker()">{{getMonthYear()}}</button>
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="dependencias.length > 0">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="dependencia">Unidad Academica</label>
+                <select id="dependencia" class="form-control form-control-sm" [(ngModel)]="dependencia.id"
+                    [ngModelOptions]="{standalone: true}" (ngModelChange)="dependenciaChange()">
+                    <option selected [value]="-1">Todas</option>
+                    <option selected [value]="item.id" *ngFor="let item of dependencias">
+                        {{item.nombre}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group" *ngIf="programas.length > 0">
+                <label for="programa">Programa</label>
+                <select id="programa" class="form-control form-control-sm" [(ngModel)]="programa.id"
+                    [ngModelOptions]="{standalone: true}" (ngModelChange)="programaChange()">
+                    <option selected [value]="-1">Todos</option>
+                    <option selected [value]="item.id" *ngFor="let item of programas">
+                        {{item.nombre}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+
+
+    <div class="row" *ngIf="tipoReporte != 'Mensual'">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Dependencia/Facultad</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col">Estamento</th>
+                    <th scope="col" *ngIf="showColumn(1)">Ene</th>
+                    <th scope="col" *ngIf="showColumn(2)">Feb</th>
+                    <th scope="col" *ngIf="showColumn(3)">Mar</th>
+                    <th scope="col" *ngIf="showColumn(4)">Abr</th>
+                    <th scope="col" *ngIf="showColumn(5)">May</th>
+                    <th scope="col" *ngIf="showColumn(6)">Jun</th>
+                    <th scope="col" *ngIf="showColumn(7)">Jul</th>
+                    <th scope="col" *ngIf="showColumn(8)">Ago</th>
+                    <th scope="col" *ngIf="showColumn(9)">Sep</th>
+                    <th scope="col" *ngIf="showColumn(10)">Oct</th>
+                    <th scope="col" *ngIf="showColumn(11)">Nov</th>
+                    <th scope="col" *ngIf="showColumn(12)">Dic</th>
+                    <th scope="col">T/H</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="reportes.length === 0">
+                    <td colspan="18">
+                        No se encontraron datos para esta tabla.
+                    </td>
+                </tr>
+                <tr *ngFor="let reporte of reportes">
+                    <td scope="row" class="center-col">{{ reporte.nombre }}</td>
+                    <td scope="row" class="center-col">{{ reporte.genero }}</td>
+                    <td scope="row" class="center-col">{{ reporte.documento }}</td>
+                    <td scope="row" class="center-col">{{ reporte.codigo }}</td>
+                    <td scope="row" class="center-col">{{ reporte.dependencia }}</td>
+                    <td scope="row" class="center-col">{{ reporte.programa }}</td>
+                    <td scope="row" class="center-col">{{ reporte.estamento }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(1)">{{ reporte.enero }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(2)">{{ reporte.febrero }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(3)">{{ reporte.marzo }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(4)">{{ reporte.abril }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(5)">{{ reporte.mayo }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(6)">{{ reporte.junio }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(7)">{{ reporte.julio }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(8)">{{ reporte.agosto }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(9)">{{ reporte.septiembre }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(10)">{{ reporte.octubre }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(11)">{{ reporte.noviembre }}</td>
+                    <td scope="row" class="center-col" *ngIf="showColumn(12)">{{ reporte.diciembre }}</td>
+                    <td scope="row" class="center-col">{{ getTotal(reporte) }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2" *ngIf="collectionSize > pageSize">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+
+    <div class="row table-responsive" *ngIf="tipoReporte == 'Mensual'">
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Dependencia/Facultad</th>
+                    <th scope="col">Programa</th>
+                    <th scope="col">Estamento</th>
+                    <th scope="col">1</th>
+                    <th scope="col">2</th>
+                    <th scope="col">3</th>
+                    <th scope="col">4</th>
+                    <th scope="col">5</th>
+                    <th scope="col">6</th>
+                    <th scope="col">7</th>
+                    <th scope="col">8</th>
+                    <th scope="col">9</th>
+                    <th scope="col">10</th>
+                    <th scope="col">11</th>
+                    <th scope="col">12</th>
+                    <th scope="col">13</th>
+                    <th scope="col">14</th>
+                    <th scope="col">15</th>
+                    <th scope="col">16</th>
+                    <th scope="col">17</th>
+                    <th scope="col">18</th>
+                    <th scope="col">19</th>
+                    <th scope="col">20</th>
+                    <th scope="col">21</th>
+                    <th scope="col">22</th>
+                    <th scope="col">23</th>
+                    <th scope="col">24</th>
+                    <th scope="col">25</th>
+                    <th scope="col">26</th>
+                    <th scope="col">27</th>
+                    <th scope="col">28</th>
+                    <th scope="col">29</th>
+                    <th scope="col">30</th>
+                    <th scope="col">31</th>
+                    <th scope="col">T/H</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="reportesMensual.length === 0">
+                    <td colspan="18">
+                        No se encontraron datos para esta tabla.
+                    </td>
+                </tr>
+                <tr *ngFor="let reporte of reportesMensual">
+                    <td scope="row" class="center-col">{{ reporte.nombre }}</td>
+                    <td scope="row" class="center-col">{{ reporte.genero }}</td>
+                    <td scope="row" class="center-col">{{ reporte.documento }}</td>
+                    <td scope="row" class="center-col">{{ reporte.codigo }}</td>
+                    <td scope="row" class="center-col">{{ reporte.dependencia }}</td>
+                    <td scope="row" class="center-col">{{ reporte.programa }}</td>
+                    <td scope="row" class="center-col">{{ reporte.estamento }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d1 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d2 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d3 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d4 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d5 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d6 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d7 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d8 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d9 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d10 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d11 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d12 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d13 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d14 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d15 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d16 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d17 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d18 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d19 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d20 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d21 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d22 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d23 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d24 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d25 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d26 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d27 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d28 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d29 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d30 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.d31 }}</td>
+                    <td scope="row" class="center-col">{{ reporte.total }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2" *ngIf="collectionSize > pageSize">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="spinner-border" role="status" *ngIf="showLoader">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <button class="btn btn-success btn-fill mr-3" (click)="export()" *ngIf="!showLoader && file">
+            Exportar Reporte
+        </button>
+    </div>
+</div>
+<div class="container-fulid" *ngIf="gruposList.length == 0">
+    <div class="row">
+        <div class="col">
+            <p>No tienes ningun grupo a tu cargo, debes tener al menos un grupo a tu cargo para realizar la inscripción
+                mensual de usuarios</p>
+            <button class="btn btn-sm btn-primary" (click)="goToGrupos()">Ir a grupos</button>
+        </div>
+    </div>
+</div>

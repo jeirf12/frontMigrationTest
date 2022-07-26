@@ -1,0 +1,16 @@
+.deportista-info {
+  display: flex;
+  flex-direction: row;
+
+  label {
+    font-size: 0.8rem;
+    line-height: 24px;
+  }
+
+  p {
+    width: 75%;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0px 10px !important;
+  }
+}

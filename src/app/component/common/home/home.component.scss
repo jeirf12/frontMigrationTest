@@ -1,0 +1,158 @@
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  z-index: -2;
+  background-image: linear-gradient(#6d7ba7, white);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#footer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  padding: auto;
+  background-image: radial-gradient(red, #770000);
+  z-index: 20;
+
+  p {
+    font-size: 0.7rem;
+    line-height: 0.8rem;
+    color: yellow;
+    margin: 0px;
+    text-align: center;
+    font-weight: 500;
+  }
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  margin-bottom: 50px;
+
+  .home-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 30px;
+    background-color: #092169;
+    border-bottom: 10px solid #770000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+    .logoU {
+      background-image: url("~src/assets/img/unicauca/logo.png");
+      background-repeat: no-repeat;
+      background-size: 120px;
+      width: 120px;
+      height: 60px;
+    }
+
+    p {
+      font-size: 2rem;
+      color: white;
+      font-weight: 900;
+      margin: auto;
+      font-style: italic;
+    }
+
+    button {
+      background-color: white;
+      color: #092169;
+      font-weight: 700;
+    }
+  }
+  .home-content {
+    width: 85%;
+    margin-top: 20px;
+    padding: 15px 40px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 30px 0px;
+  text-align: center;
+
+  .component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(50% - 20px);
+    margin: 10px;
+    padding: 25px 30px;
+    border-radius: 3px;
+    background-color: #efefef;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+    h6 {
+      font-size: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1rem;
+      text-align: justify;
+    }
+    a {
+      display: block;
+      width: 100%;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .component-complete {
+    width: 100% !important;
+  }
+}
+
+.event-new-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+::ng-deep .carousel-indicators {
+  margin-bottom: 0px !important;
+  li {
+    background-color: #222222;
+  }
+}
+
+::ng-deep .carousel-caption {
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 20px 0px 20px;
+  margin-bottom: 0px;
+  background-color: #ffffff93;
+  color: #222222;
+  font-weight: 500;
+  cursor: pointer;
+}
+

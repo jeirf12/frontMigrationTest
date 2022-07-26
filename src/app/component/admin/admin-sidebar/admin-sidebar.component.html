@@ -1,0 +1,18 @@
+<div class="logo">
+    <a href="http://www.unicauca.edu.co" class="simple-text" style="text-align: center;">
+        <img src="./assets/img/unicauca/logo.png" style="height: 50px;" />
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <p class="sidebar-p">Bienvenido</p>
+        <p class="sidebar-p sidebar-username">{{completeName}}</p>
+        <p class="sidebar-p sidebar-role">{{'('+role+')'}}</p>
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="nav-item">
+            <a class="nav-link" [routerLink]="[menuItem.path]">
+                <fa-icon [icon]="menuItem.icon"></fa-icon>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+    </ul>
+</div>

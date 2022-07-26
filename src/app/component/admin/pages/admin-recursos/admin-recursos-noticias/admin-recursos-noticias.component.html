@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-7">
+            <button class="btn btn-success btn-fill" (click)="add()">
+                Agregar Noticia
+            </button>
+        </div>
+        <div class="col-5 my-auto">
+        </div>
+    </div>
+    <div class="row table-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Fecha de publicación</th>
+                    <th scope="col">Fecha de vencimiento</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="noticias.length === 0">
+                    <td colspan="5">
+                        No se encontraron datos para esta tabla.
+                    </td>
+                </tr>
+                <tr *ngFor="let noticia of noticias">
+                    <td scope="row" class="center-col">
+                        {{noticia.titulo}}
+                    </td>
+                    <td scope="row" class="center-col">
+                        {{ noticia.fechaCreacion | date: 'EEEE dd \'de\' MMMM, yyyy' | titlecase  }}</td>
+                    <td scope="row" class="center-col">
+                        {{ noticia.fechaCaducidad | date: 'EEEE dd \'de\' MMMM, yyyy' | titlecase  }}</td>
+                    <td scope="row" class="center-col padding-sm">
+                        <button class="btn btn-primary btn-fill" (click)="view(noticia)" data-toggle="tooltip"
+                            data-placement="top" title="Ver">
+                            <fa-icon [icon]="faEye"></fa-icon>
+                        </button>
+                        <button class="btn btn-info btn-fill" (click)="update(noticia)" data-toggle="tooltip"
+                            data-placement="top" title="Editar">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>
+                        <button class="btn btn-danger btn-fill" (click)="delete(noticia)" data-toggle="tooltip"
+                            data-placement="top" title="Eliminar">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2" *ngIf="collectionSize > pageSize">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>

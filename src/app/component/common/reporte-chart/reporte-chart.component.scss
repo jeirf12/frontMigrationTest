@@ -1,0 +1,24 @@
+.report-title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.empty-msg {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 100%;
+    background-color: lightgrey;
+
+    fa-icon {
+        font-size: 3.5rem;
+    }
+
+    h6 {
+        margin: 0px;
+    }
+}

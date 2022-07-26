@@ -1,0 +1,14 @@
+<div class="header">
+    <img class="imagen-header" [src]="item.imagen ? urlImagen : './assets/img/noticia_default.png'">
+    <div class="text-header">
+        <p>
+            <fa-icon [icon]="faCalendarAlt"></fa-icon>{{item.fechaCreacion | date: 'EEEE dd \'de\' MMMM, yyyy' | titlecase}}
+        </p>
+        <div></div>
+    </div>
+    <fa-icon [icon]="faTimes" class="close-button" (click)="activeModal.dismiss('Cross click')"></fa-icon>
+</div>
+<div class="body">
+    <h6>{{item.titulo}}</h6>
+    <p>{{item.contenido}}</p>
+</div>

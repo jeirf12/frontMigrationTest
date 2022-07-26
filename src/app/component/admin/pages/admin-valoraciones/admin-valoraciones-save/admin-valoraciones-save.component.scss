@@ -1,0 +1,135 @@
+select {
+  text-align: center;
+  font-size: 0.7rem;
+  margin-left: 8px;
+}
+
+table {
+  margin-top: 0px !important;
+  label {
+    width: 100%;
+    font-size: 0.7rem;
+    margin: 4px 0px 0px 0px;
+    min-width: 120px;
+  }
+
+  input,
+  select {
+    text-align: center;
+    font-size: 0.6rem;
+    max-width: 120px;
+    margin-left: 8px;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+}
+
+.table td {
+  border-top: 0px !important;
+  padding: 8px 0px !important;
+}
+
+.wrk-30 {
+  width: 30%;
+}
+
+.wrk-40 {
+  width: 40%;
+}
+
+.resultados {
+  tr {
+    td {
+      padding: 5px 10px !important;
+    }
+    .center-col {
+      font-weight: 700;
+    }
+  }
+}
+
+.test-container {
+  width: 100%;
+  margin: 25px 5% 10px 5%;
+
+  .test-header {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: darkslateblue;
+    padding: 8px 20px;
+    cursor: pointer;
+    h6 {
+      margin: 0px;
+      color: white;
+    }
+  }
+  .test-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    padding: 20px;
+
+    table {
+      font-size: 0.8rem;
+      max-width: 30%;
+      margin: 0px;
+      align-self: center;
+      .subtitle {
+        th {
+          background-color: gray;
+          font-size: 0.6rem;
+        }
+      }
+      tr {
+        td {
+          text-align: center;
+          padding: 8px !important;
+          input {
+            margin-left: 0px;
+          }
+          .two-lines{
+            max-width: 130px !important;
+          }
+        }
+        
+      }
+    }
+  }
+
+  .test-footer {
+    border-top: 1px dotted gray;
+    padding: 10px 20px;
+    p {
+      font-size: 0.7rem;
+      line-height: 1em;
+      margin: 0px;
+    }
+    hr {
+      margin: 10px 0px;
+    }
+  }
+
+  .formulas {
+    p {
+      margin-top: 3px !important;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.leger-result {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+}

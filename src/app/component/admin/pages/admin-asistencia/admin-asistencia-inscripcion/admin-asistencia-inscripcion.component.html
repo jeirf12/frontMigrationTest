@@ -1,0 +1,135 @@
+<div class="container-fluid" *ngIf="gruposList.length > 0">
+    <div class="row">
+        <p class="mx-5">Para realizar la inscripcion mensual de deportistas por favor selecciona la fecha y grupo, a
+            continuación selecciona todos los deportistas que desees inscribir</p>
+    </div>
+    <div class="row">
+        <div class="col-3 ml-5">
+            <button class="btn btn-sm btn-primary" (click)="showMonthPicker()">{{getMonthYear()}}</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="gruposList.length > 0">
+        <div class="col-3 ml-5">
+            <div class="form-group">
+                <label for="grupo">Selecciona el grupo</label>
+                <select id="grupo" class="form-control form-control-sm" [(ngModel)]="grupoIndex"
+                    (ngModelChange)="loadInscripcion()" [ngModelOptions]="{standalone: true}">
+                    <option selected [value]="i" *ngFor="let item of gruposList; let i=index">
+                        {{item.nombre}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group">
+                <label for="horarios">Horarios de {{gruposList[grupoIndex].nombre}}</label>
+                <p *ngFor="let horario of gruposList[grupoIndex].horariosList" class="horario">
+                    {{getHorarioCompleto(horario)}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-7"></div>
+        <div class="col-5">
+            <div class="input-group">
+                <fa-icon [icon]="faSearch" class="input-group-prepend input-group-text"></fa-icon>
+                <input id="documento" type="text" class="form-control form-control-search" [(ngModel)]="searchKey"
+                    [ngModelOptions]="{standalone: true}" placeholder="Busca por nombre o documento">
+            </div>
+        </div>
+    </div>
+    <div class="row table-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo Usuario</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="deportistas.length === 0">
+                    <td colspan="5">
+                        No se encontraron datos para esta tabla.
+                    </td>
+                </tr>
+                <tr *ngFor="let deportista of deportistas">
+                    <td scope="row">
+                        <ngb-highlight [result]="deportista.info.documento" [term]="searchKey"></ngb-highlight>
+                    </td>
+                    <td scope="row">
+                        <ngb-highlight [result]="deportista.info.primerNombre + ' ' + deportista.info.primerApellido"
+                            [term]="searchKey"></ngb-highlight>
+                    </td>
+                    <td scope="row" class="center-col">{{ deportista.tipoDeportista }}</td>
+                    <td scope="row" class="center-col padding-sm">
+                        <button class="btn btn-success btn-fill ml-2" (click)="inscribir(deportista)"
+                            data-toggle="tooltip" data-placement="top" title="Inscribir deportista">
+                            <fa-icon [icon]="faUserPlus"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2" *ngIf="collectionSize > pageSize">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+
+    <div class="row table-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo Usuario</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="deportistasSelectedList.length === 0">
+                    <td colspan="5">
+                        No se han inscrito deportistas para este mes.
+                    </td>
+                </tr>
+                <tr *ngFor="let deportista of deportistasSelectedList; let i= index">
+                    <td scope="row">
+                        {{deportista.info.documento}}
+                    </td>
+                    <td scope="row">
+                        {{deportista.info.primerNombre + ' ' + deportista.info.primerApellido}}
+                    </td>
+                    <td scope="row" class="center-col">{{ deportista.tipoDeportista }}</td>
+                    <td scope="row" class="center-col padding-sm">
+                        <button class="btn btn-danger btn-fill ml-2" (click)="cancelarInscripcion(i)"
+                            data-toggle="tooltip" data-placement="top" title="Cancelar inscripción">
+                            <fa-icon [icon]="faUserMinus"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-md-end mt-3">
+        <button class="btn btn-inverse btn-fill mr-2" (click)="back()">
+            Cancelar
+        </button>
+        <button class="btn btn-success btn-fill mr-3" (click)="save()" *ngIf="deportistasSelectedList.length != 0">
+            Guardar Inscripciones
+        </button>
+    </div>
+
+</div>
+<div class="container-fulid" *ngIf="gruposList.length == 0">
+    <div class="row">
+        <div class="col">
+            <p>No tienes ningun grupo a tu cargo, debes tener al menos un grupo a tu cargo para realizar la inscripción
+                mensual de usuarios</p>
+            <button class="btn btn-sm btn-primary" (click)="goToGrupos()">Ir a grupos</button>
+        </div>
+    </div>
+</div>

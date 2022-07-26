@@ -1,0 +1,27 @@
+<table class="table table-bordered table-sm table-hover">
+    <thead>
+        <tr>
+            <th scope="col" style="border-top-left-radius: 3px;">Hora</th>
+            <th scope="col">Lunes</th>
+            <th scope="col">Martes</th>
+            <th scope="col">Miercoles</th>
+            <th scope="col">Jueves</th>
+            <th scope="col" style="border-top-right-radius: 3px;">Viernes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ch of currentHorarioList">
+            <td scope="row" class="center-col">{{getHoraCompleta(ch.hora)}}</td>
+            <td scope="row" class="center-col" [style.background]="ch.lunesColor">
+                {{ch.lunes}}</td>
+            <td scope="row" class="center-col" [style.background]="ch.martesColor">
+                {{ch.martes}}</td>
+            <td scope="row" class="center-col" [style.background]="ch.miercolesColor">
+                {{ch.miercoles}}</td>
+            <td scope="row" class="center-col" [style.background]="ch.juevesColor">
+                {{ch.jueves}}</td>
+            <td scope="row" class="center-col" [style.background]="ch.viernesColor">
+                {{ch.viernes}}</td>
+        </tr>
+    </tbody>
+</table>

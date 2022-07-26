@@ -1,0 +1,32 @@
+<div id="background"></div>
+<div id="bandera"></div>
+<div id="antorcha"></div>
+
+<div class="login-container">
+    <div class="header">
+        <a class="logoU" href="http://www.unicauca.edu.co"></a>
+        <p class="separador"></p>
+        <p class="desc">División de Gestión de Salud Integral y Desarollo Humano</p>
+    </div>
+
+    <form class="login" [formGroup]="loginForm" (ngSubmit)="doAuthentication()">
+        <div id="logoSimca"></div>
+        <div class="col-12 login-form mt-4" style="text-align: center;">
+            <div class="form-group" id="user-group">
+                <input type="text" class="form-control form-control-sm" placeholder="Nombre de usuario" name="username"
+                    formControlName="username" />
+            </div>
+            <div class="form-group" id="contrasena-group">
+                <input type="password" class="form-control form-control-sm" placeholder="Contraseña" name="password"
+                    formControlName="password" />
+            </div>
+            <button type="submit" class="btn btn-primary login-button">
+                Ingresar
+                <fa-icon [icon]="faSignInAlt" style="margin-left: 8px;"></fa-icon>
+            </button>
+        </div>
+    </form>
+    <div *ngIf="isLogginFailed" class="alert alert-danger mensaje" role="alert">
+        Nombre de usuario o contraseña incorrectos.
+    </div>
+</div>

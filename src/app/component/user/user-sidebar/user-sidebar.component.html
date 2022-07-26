@@ -1,0 +1,29 @@
+<div class="logo">
+    <a href="http://www.unicauca.edu.co" class="simple-text" style="text-align: center;">
+        <img src="./assets/img/unicauca/logo.png" style="height: 50px;" />
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <p class="sidebar-p">Bienvenido</p>
+        <p class="sidebar-p sidebar-username mb-4">{{completeName}}</p>
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="nav-item">
+            <a class="nav-link" [routerLink]="[menuItem.path]">
+                <fa-icon [icon]="menuItem.icon"></fa-icon>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+        <!-- 
+        <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
+        <li><a href="#" *ngIf="isMobileMenu()">
+                <fa-icon [icon]="faUser"></fa-icon>
+                Perfil
+            </a>
+        </li>
+        <li><a (click)="doLogout()" style="cursor: pointer;" *ngIf="isMobileMenu()">
+                <fa-icon [icon]="faSignOutAlt"></fa-icon>
+                Cerrar Sesión
+            </a>
+        </li> -->
+    </ul>
+</div>

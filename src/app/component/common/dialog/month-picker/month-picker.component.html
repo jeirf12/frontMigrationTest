@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <button class="btn btn-sm btn-primary" (click)="selectYear(year-1)">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+    </button>
+    <button class="btn btn-sm btn-primary" (click)="toggleShowYears()">{{year}}</button>
+    <button class="btn btn-sm btn-primary" (click)="selectYear(year+1)">
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="row" *ngIf="!isShowYears">
+            <div class="col col-4" *ngFor="let item of [].constructor(12); let i = index">
+                <button [ngClass]="(i+1) == month ? 'btn btn-sm btn-selected' : 'btn btn-sm'"
+                    (click)="selectMonth(i+1)">{{getMonthFullName(i+1)}}</button>
+            </div>
+        </div>
+        <div class="row" *ngIf="isShowYears">
+            <div class="col col-4" *ngFor="let item of years">
+                <button [ngClass]="(item) == year ? 'btn btn-sm btn-selected' : 'btn btn-sm'"
+                    (click)="selectYear(item)">{{item}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" (click)="activeModal.close('Close click')">Cancelar</button>
+    <button type="button" class="btn btn-sm btn-success" (click)="sendResponse()">Aceptar</button>
+</div>

@@ -1,0 +1,109 @@
+<div class="container-fluid" *ngIf="gruposList.length > 0">
+    <div class="row">
+        <p class="mx-5">Para realizar el registro de asistencia de los deportistas por favor selecciona el grupo y la
+            fecha, a continuación selecciona todos los deportistas que asistieron</p>
+    </div>
+    <div class="row" *ngIf="gruposList.length > 0">
+        <div class="col-3 ml-5">
+            <div class="form-group">
+                <label for="grupo">Selecciona el grupo</label>
+                <select id="grupo" class="form-control form-control-sm" [(ngModel)]="grupoIndex"
+                    (ngModelChange)="onGrupoChange()" [ngModelOptions]="{standalone: true}">
+                    <option selected [value]="i" *ngFor="let item of gruposList; let i=index">
+                        {{item.nombre}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group">
+                <label for="horarios">Horarios de {{gruposList[grupoIndex].nombre}}</label>
+                <p *ngFor="let horario of gruposList[grupoIndex].horariosList" class="horario">
+                    {{getHorarioCompleto(horario)}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="gruposList.length > 0">
+        <div class="col-3 ml-5">
+            <div class="form-group">
+                <label for="documento">Selecciona la fecha</label>
+                <div class="input-group">
+                    <fa-icon [icon]="faCalendar" class="input-group-prepend input-group-text" (click)="d.toggle()">
+                    </fa-icon>
+                    <input placeholder="yyyy-mm-dd" name="dp" #d="ngbDatepicker" [(ngModel)]="fechaAsistencia"
+                        [ngModelOptions]="{standalone: true}" ngbDatepicker placement="right" (click)="d.toggle()"
+                        class="form-control form-control-sm" (ngModelChange)="onDateChange()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row table-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo Usuario</th>
+                    <th scope="col" (click)="changeAsistenciaToAll()" style="cursor: pointer;" data-toggle="tooltip"
+                        data-placement="top" title="Cambiar asistencia para todos">
+                        Asistencia
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="deportistas.length === 0">
+                    <td colspan="5">
+                        No hay deportistas inscritos para este grupo o fecha.
+                    </td>
+                </tr>
+                <tr *ngFor="let deportista of deportistas; let i= index">
+                    <td scope="row">
+                        {{deportista.info.documento}}
+                    </td>
+                    <td scope="row">
+                        {{deportista.info.primerNombre + ' ' + deportista.info.primerApellido}}
+                    </td>
+                    <td scope="row" class="center-col">{{ deportista.tipoDeportista }}</td>
+                    <td scope="row" class="center-col padding-sm">
+                        <button class="btn btn-danger btn-fill ml-2" (click)="changeAsistencia(deportista.id, true)"
+                            data-toggle="tooltip" data-placement="top" title="Marcar asistencia"
+                            *ngIf="!getAsistencia(deportista.id)">
+                            <fa-icon [icon]="faWindowClose"></fa-icon>
+                        </button>
+                        <button class="btn btn-success btn-fill ml-2" (click)="changeAsistencia(deportista.id, false)"
+                            data-toggle="tooltip" data-placement="top" title="Cancelar asistencia"
+                            *ngIf="getAsistencia(deportista.id)">
+                            <fa-icon [icon]="faCheckSquare"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="form-group mt-3" style="width: 95%;">
+            <label for="observaciones" style="font-size: 1rem;">Observaciones <span
+                    class="opcional">(Opcional)</span></label>
+            <textarea id="observaciones" [(ngModel)]="asistencia.observaciones"
+                style="padding: 0.3rem 0.8rem !important;" [ngModelOptions]="{standalone: true}"
+                class="form-control form-control-sm"></textarea>
+        </div>
+    </div>
+    <div class="row justify-content-md-end mt-3">
+        <button class="btn btn-inverse btn-fill mr-2" (click)="back()">
+            Cancelar
+        </button>
+        <button class="btn btn-success btn-fill mr-3" (click)="save()" *ngIf="inscripcionExists">
+            Guardar Asistencia
+        </button>
+    </div>
+</div>
+<div class="container-fulid" *ngIf="gruposList.length == 0">
+    <div class="row">
+        <div class="col">
+            <p>No tienes ningun grupo a tu cargo, debes tener al menos un grupo a tu cargo para realizar el registro de
+                asistencia</p>
+            <button class="btn btn-sm btn-primary" (click)="goToGrupos()">Ir a grupos</button>
+        </div>
+    </div>
+</div>

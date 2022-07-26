@@ -1,1 +1,517 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500");
+
+@media (min-width: 992px) {
+  .typo-line {
+    padding-left: 140px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .typo-line .category {
+    transform: translateY(-50%);
+    top: 50%;
+    left: 0px;
+    position: absolute;
+  }
+}
+
+:root{
+  font-size: 18px;
+}
+$app-blue: #3f51b5 !default;
+
+body {
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  color: #222222;
+}
+
+.form-check-rk {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 30px;
+
+  input[type=checkbox] {
+      margin-top: 0px !important;
+      opacity: 1 !important;
+      z-index: 0 !important;
+      -webkit-appearance: checkbox !important;
+  }
+
+  label {
+      margin-left: 5px;
+      font-weight: bold;
+  }
+}
+
+label{
+  font-weight: bold;
+}
+
+.form-check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  input {
+    margin-left: 5px !important;
+    opacity: 1 !important;
+    z-index: 0 !important;
+  }
+
+  label {
+    margin-left: 0px;
+  }
+}
+
+.navbar-item {
+  margin: 0px !important;
+  padding: 10px !important;
+  cursor: pointer;
+}
+
+.sidebar-p {
+  line-height: 20px !important;
+  color: white;
+  margin-left: 25px !important;
+}
+
+.sidebar-username {
+  font-size: 16px !important;
+}
+
+.sidebar-role {
+  font-size: 11px !important;
+  margin-bottom: 25px !important;
+}
+
+.places-buttons .btn {
+  margin-bottom: 30px;
+}
+
+.table-container {
+  padding: 0px 5%;
+}
+
+.table {
+  font-size: 14px !important;
+  line-height: 14px !important;
+  margin-top: 1.8em;
+}
+
+.table th {
+  background-color: #333333;
+  color: white !important;
+  text-align: center;
+  font-weight: 700 !important;
+  padding: 8px 10px !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.table td {
+  max-width: 180px;
+  padding: 8px 10px !important;
+  //font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.3em;
+}
+
+.table td.center-col {
+  text-align: center;
+}
+
+.table td.padding-sm {
+  padding: 2px 10px !important;
+}
+
+.table button {
+  font-size: 10px;
+  padding: 5px 8px !important;
+  font-weight: 500 !important;
+  margin: 2px 3px;
+  fa-icon {
+    font-size: 0.7rem !important;
+  }
+}
+
+.empty-table-msg {
+  font-size: 13px !important;
+  text-align: center;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.row {
+  hr {
+    width: 100%;
+    margin-top: 0px;
+  }
+  h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0px;
+  }
+}
+
+//Modal styles
+
+.modal-header {
+  background-color: #3f51b5;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-bottom: 0px;
+
+  button {
+    color: white;
+  }
+}
+
+.modal-body {
+  padding: 1rem;
+
+  p {
+    margin-bottom: 0px;
+  }
+
+  label {
+    font-weight: 700;
+    margin: 0px;
+  }
+
+  .form-group p {
+    font-size: 14px;
+    line-height: 14px;
+  }
+}
+
+.modal-footer {
+  padding: 0px 1rem 0.5rem;
+  border-top: 0px;
+}
+
+//Input styles
+
+.form-control {
+  padding: 0px 0.8rem !important;
+  color: #222222;
+}
+
+.form-control-sm {
+  height: 2em;
+  font-size: 0.8rem;
+}
+
+label {
+  color: #333333;
+  font-size: 13px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.msg-input-error {
+  line-height: 1em;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 70%;
+  color: #dc3545;
+}
+
+.form-control-search {
+  font-size: 0.8rem;
+  border-left: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
+  border-bottom-left-radius: 0px;
+}
+
+.input-group-text {
+  color: white !important;
+  background-color: $app-blue !important;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0.2rem;
+}
+
+input{
+  height: 30px;
+  width: 100%;
+  margin-top: 0px;
+}
+input[type="checkbox"] {
+  height: 17px;
+  width: 15px;
+  margin-top: 5px;
+}
+
+.label-checkbox-on {
+  font-size: 14px;
+  font-weight: 700;
+  color: green;
+}
+
+.label-checkbox-off {
+  font-size: 14px;
+  font-weight: 700;
+  color: red;
+}
+
+.form-control.is-invalid-select {
+  border-color: #f44336;
+  padding-right: calc(1.5em + 0.875rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23f44336' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23f44336' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center right calc(0.375em + 0.819rem);
+  background-size: calc(0.75em + 0.4375rem) calc(0.75em + 0.4375rem);
+}
+
+.state-active {
+  font-weight: 700;
+  color: green;
+}
+
+.state-inactive {
+  font-weight: 700;
+  color: red;
+}
+
+.opcional {
+  font-size: 0.7rem;
+  color: gray;
+}
+
+//profile photo
+
+.photo-container {
+  display: flex;
+  justify-content: center;
+
+  .hoverable {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    height: 150px;
+    width: 150px;
+    border: 3px solid #3f51b5;
+    border-radius: 50%;
+
+    .background {
+      position: absolute;
+      display: none;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .hover-text {
+      position: absolute;
+      display: none;
+      text-align: center;
+      width: 95%;
+      top: 50%;
+      left: 50%;
+      font-weight: 700;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+  }
+
+  .hoverable:hover {
+    .background {
+      display: block;
+    }
+    .hover-text {
+      display: block;
+    }
+  }
+}
+
+.photo-profile {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.photo-profile-container {
+  position: relative;
+  display: block;
+  height: 150px;
+  width: 150px;
+  border: 3px solid #3f51b5;
+  border-radius: 50%;
+  .background {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: 1;
+  }
+}
+
+.delete-photo {
+  margin-top: 125px;
+  margin-left: -20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: darkred;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.fileds-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+
+  .form-group {
+    margin: 0px;
+    height: 190px;
+    width: 100%;
+
+    .hoverable {
+      position: relative;
+      display: block;
+      cursor: pointer;
+      height: 180px;
+      width: 100%;
+      border-radius: 5px;
+
+      .hover-text {
+        position: absolute;
+        display: none;
+        text-align: center;
+        width: 95%;
+        top: 50%;
+        left: 50%;
+        font-weight: 700;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
+
+      .background {
+        position: absolute;
+        display: none;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        pointer-events: none;
+        border-radius: 5px;
+        z-index: 1;
+      }
+
+      img {
+        height: 180px;
+        width: 100%;
+        border-radius: 5px;
+        object-fit: cover;
+      }
+    }
+
+    .hoverable:hover {
+      .background {
+        display: block;
+      }
+      .hover-text {
+        display: block;
+      }
+    }
+  }
+}
+
+.delete-image {
+  margin-top: 30px;
+  margin-left: -30px;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  background-color: darkred;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  text-align: center;
+  color: white;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+//Acordeon
+
+.card {
+  margin-top: 15px;
+  margin-bottom: 0px;
+  border-radius: 0.2rem;
+
+  .card-header {
+    padding: 0px;
+    background-color: #3f51b5 !important;
+
+    h6 {
+      width: 100%;
+      text-align: start;
+      color: white !important;
+      margin: 12px 30px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    button {
+      width: 100%;
+      text-align: start;
+      color: white;
+      margin: 0px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    button:hover {
+      color: #eee;
+    }
+
+    button:focus {
+      color: white;
+    }
+  }
+}
+
+ngb-accordion {
+  width: 95%;
+}

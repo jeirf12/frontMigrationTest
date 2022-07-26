@@ -1,0 +1,1204 @@
+<div class="container-fluid">
+    <div *ngIf="showErrorMsg" class="row alert alert-danger mensaje" role="alert">
+        {{errorMsg}}
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="documento">Fecha de la valoración</label>
+                <div class="input-group">
+                    <fa-icon [icon]="faCalendar" class="input-group-prepend input-group-text" (click)="d.toggle()">
+                    </fa-icon>
+                    <input placeholder="yyyy-mm-dd" name="dp" #d="ngbDatepicker" [(ngModel)]="fechaValoracion"
+                        [ngModelOptions]="{standalone: true}" ngbDatepicker placement="bottom"
+                        [ngClass]="showErros && !fechaValoracion ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                </div>
+                <div *ngIf="showErros && !fechaValoracion" class="msg-input-error">Este campo es requerido</div>
+            </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <ngb-accordion #accordion [closeOthers]="true" activeIds="pn-medidas" (panelChange)="panelChange()">
+            <ngb-panel id="pn-medidas" title="Medidas">
+                <ng-template ngbPanelContent>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="deporte">Deporte</label>
+                                    <select id="deporte" class="form-control form-control-sm"
+                                        [(ngModel)]="valoracion.medidas.deporte" [ngModelOptions]="{standalone: true}">
+                                        <option [value]="item.descripcion" *ngFor="let item of tiposDeporte">
+                                            {{item.descripcion}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col wrk-30">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="peso">Peso (kg)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="peso" type="number" [(ngModel)]="valoracion.medidas.peso"
+                                                    appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                    placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.peso ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.peso"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="talla">Talla (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="talla" type="number" [(ngModel)]="valoracion.medidas.talla"
+                                                    appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                    placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.talla ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.talla"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="triceps">Triceps (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="triceps" type="number"
+                                                    [(ngModel)]="valoracion.medidas.triceps" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.triceps ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.triceps"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="subEscapular">Sub Escapular (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="subEscapular" type="number"
+                                                    [(ngModel)]="valoracion.medidas.subEscapular" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.subEscapular ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.subEscapular"
+                                                    class="msg-input-error">
+                                                    Este
+                                                    campo es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="suprailiaco">Suprailiaco (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="suprailiaco" type="number"
+                                                    [(ngModel)]="valoracion.medidas.suprailiaco" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.suprailiaco ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.suprailiaco"
+                                                    class="msg-input-error">
+                                                    Este
+                                                    campo es requerido
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="abdominal">Abdominal (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="abdominal" type="number"
+                                                    [(ngModel)]="valoracion.medidas.abdominal" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.abdominal ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.abdominal"
+                                                    class="msg-input-error">
+                                                    Este campo
+                                                    es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="muslo">Muslo (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="muslo" type="number" [(ngModel)]="valoracion.medidas.muslo"
+                                                    appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                    placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.muslo ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.muslo"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pantorrilla">Pantorrilla (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pantorrilla" type="number"
+                                                    [(ngModel)]="valoracion.medidas.pantorrilla" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pantorrilla ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pantorrilla"
+                                                    class="msg-input-error">
+                                                    Este
+                                                    campo es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col wrk-30">
+                                <table class="table">
+                                    <tbody>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pMuneca">Perim. Muñeca (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pMuneca" type="number"
+                                                    [(ngModel)]="valoracion.medidas.pMuneca" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pMuneca ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pMuneca"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pCabeza">Perim. Cabeza (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pCabeza" type="number"
+                                                    [(ngModel)]="valoracion.medidas.pCabeza" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pCabeza ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pCabeza"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="dBiacromial">Diametro Biacromial (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="dBiacromial" type="number"
+                                                    [(ngModel)]="valoracion.medidas.dBiacromial" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.dBiacromial ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.dBiacromial"
+                                                    class="msg-input-error">
+                                                    Este
+                                                    campo es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="dBiltiocristal">Diametro Biltiocristal (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="dBiltiocristal" type="number"
+                                                    [(ngModel)]="valoracion.medidas.dBiltiocristal" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.dBiltiocristal ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.dBiltiocristal"
+                                                    class="msg-input-error">Este
+                                                    campo es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="dHumero">Diametro Humero (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="dHumero" type="number"
+                                                    [(ngModel)]="valoracion.medidas.dHumero" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.dHumero ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.dHumero"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="dFemur">Diametro Femur (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="dFemur" type="number" [(ngModel)]="valoracion.medidas.dFemur"
+                                                    appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                    placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.dFemur ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.dFemur"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pBrazo">Perim. Brazo (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pBrazo" type="number" [(ngModel)]="valoracion.medidas.pBrazo"
+                                                    appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                    placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pBrazo ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pBrazo"
+                                                    class="msg-input-error">Este
+                                                    campo es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pAntebrazo">Perim. Antebrazo (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pAntebrazo" type="number"
+                                                    [(ngModel)]="valoracion.medidas.dAntebrazo" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.dAntebrazo ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.dAntebrazo"
+                                                    class="msg-input-error">
+                                                    Este campo
+                                                    es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pPantorrilla">Perim. Pantorrilla (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pPantorrilla" type="number"
+                                                    [(ngModel)]="valoracion.medidas.pPantorrilla" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pPantorrilla ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pPantorrilla"
+                                                    class="msg-input-error">
+                                                    Este
+                                                    campo es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pCajaToraxica">Perim. Caja Toraxica (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pCajaToraxica" type="number"
+                                                    [(ngModel)]="valoracion.medidas.pCajaToraxica" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pCajaToraxica ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pCajaToraxica"
+                                                    class="msg-input-error">Este
+                                                    campo es requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pMuslo">Perim. Muslo (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pMuslo" type="number" [(ngModel)]="valoracion.medidas.pMuslo"
+                                                    appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                    placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pMuslo ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pMuslo"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr>
+
+
+
+
+                                        <!-- <tr>
+                                            <td scope="row">
+                                                <label for="pCintura">Perim. Cintura (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pCintura" type="number"
+                                                    [(ngModel)]="valoracion.medidas.pCintura" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pCintura ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pCintura"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <label for="pCadera">Perim. Cadera (cm)</label>
+                                            </td>
+                                            <td scope="row">
+                                                <input id="pCadera" type="number"
+                                                    [(ngModel)]="valoracion.medidas.pCadera" appOnlyNumber
+                                                    [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                    [ngClass]="showErros && !valoracion.medidas.pCadera ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                                                <div *ngIf="showErros && !valoracion.medidas.pCadera"
+                                                    class="msg-input-error">Este
+                                                    campo es
+                                                    requerido</div>
+                                            </td>
+                                        </tr> -->
+
+
+
+
+
+
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col wrk-40">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Resultado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="resultados">
+                                        <tr>
+                                            <td scope="row">Sumatoria Pliegues (cm)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.sumatoriaPliegues | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Porcentaje Grasa (cm)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.porcentajeGrasa | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Peso Graso (kg)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.pesoGraso | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Peso Libre grasa (kg)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.pesoLibreGrasa | number: '1.1-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Masa Muscular (kg)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.masaMuscular | number: '1.1-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Peso Ideal (kg)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.pesoIdeal | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Indice de Masa Corporal</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.indiceMasaCorporal | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Complexion</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.complexion | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Tasa Metabolica Basal</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.tasaMetabolicaBasal | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Exceso de Peso(kg)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.excesoPeso | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Peso Optimo(kg)</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.pesoOptimo | number: '1.1-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">% Grasa Ideal</td>
+                                            <td scope="row" class="center-col">
+                                                {{valoracion.medidas.porcentajeGrasaIdeal | number: '1.1-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row"></td>
+                                            <td scope="row" class="center-col">---</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">% Grasa</td>
+                                            <td scope="row" class="center-col"
+                                                style="max-width: 100px !important; white-space: break-spaces;">
+                                                {{valoracion.medidas.estadoPorcentajeGrasa}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Complexion</td>
+                                            <td scope="row" class="center-col"
+                                                style="max-width: 100px !important; white-space: break-spaces;">
+                                                {{valoracion.medidas.estadoComplexion}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Indice de Masa Corporal</td>
+                                            <td scope="row" class="center-col"
+                                                style="max-width: 100px !important; white-space: break-spaces;">
+                                                {{valoracion.medidas.estadoIndiceMasaCorporal}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Riesgo cardiometabolico</td>
+                                            <td scope="row" class="center-col"
+                                                style="max-width: 100px !important; white-space: break-spaces;">
+                                                {{valoracion.medidas.riesgoCardioMetabolico}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td scope="row">Indice Cintura Cadera</td>
+                                            <td scope="row" class="center-col"
+                                                style="max-width: 100px !important; white-space: break-spaces;">
+                                                {{valoracion.medidas.indiceCinturaCadera}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Razón Cintura Estatura</td>
+                                            <td scope="row" class="center-col"
+                                                style="max-width: 100px !important; white-space: break-spaces;">
+                                                {{valoracion.medidas.razonCinturaEstatura}}</td>
+                                        </tr> -->
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+
+            <ngb-panel id="pn-medidas-imc-icc-rce" title="ICC, IMC, RCE">
+                <ng-template ngbPanelContent>
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Indice de Cintura Cadera (ICC)</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Test</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="valoracion.medidas.mCintura">Medida de la cintura
+                                                        (cm)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="valoracion.medidas.mCintura" type="number"
+                                                        [(ngModel)]="valoracion.medidas.mCintura" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="valoracion.medidas.mCintura">Medida de la cadera
+                                                        (cm)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="valoracion.medidas.mCintura" type="number"
+                                                        [(ngModel)]="valoracion.medidas.mCadera" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">Valor</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.medidas.indiceCinturaCadera | number: '1.1-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Resultado</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.medidas.estadoIndiceCinturaCadera }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="test-footer">
+                                    <p><strong>Medida de la cintura:</strong> Se toma dos dedos por encima del hombligo,
+                                        por debajo de la costilla falsa</p>
+                                </div>
+                            </div>
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Indice de Masa Corporal (IMC)</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Test</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="valoracion.medidas.peso">Peso (km)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="valoracion.medidas.peso" type="number"
+                                                        [(ngModel)]="valoracion.medidas.peso" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="valoracion.medidas.mCintura">Talla (cm)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="valoracion.medidas.mCintura" type="number"
+                                                        [(ngModel)]="valoracion.medidas.talla" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">Valor</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.medidas.indiceMasaCorporal | number: '1.1-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Resultado</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.medidas.estadoIndiceMasaCorporal2 }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Razón Cintura Estatura (RCE)</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Test</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="valoracion.medidas.mCintura">Perimetro de cintura
+                                                        (cm)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="valoracion.medidas.mCintura" type="number"
+                                                        [(ngModel)]="valoracion.medidas.pCintura" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="valoracion.medidas.mCintura">Estatura
+                                                        (cm)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="valoracion.medidas.mCintura" type="number"
+                                                        [(ngModel)]="valoracion.medidas.talla" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered" style="max-width: 50%">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">Valor</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.medidas.razonCinturaEstatura | number: '1.1-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Resultado</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.medidas.estadoRazonCinturaEstatura }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="test-footer">
+                                    <p><strong>Perimetro de la cintura:</strong> Se toma al nivel del hombligo</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+
+
+            <ngb-panel id="pn-tests-deportivos" title="Tests Deportivos">
+                <ng-template ngbPanelContent>
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Test de Sargent</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Test</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="embergadura">Embergadura (cm)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="embergadura" type="number"
+                                                        [(ngModel)]="valoracion.tests.embergadura" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="saltoMaximo">Salto máximo (cm)</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="saltoMaximo" type="number"
+                                                        [(ngModel)]="valoracion.tests.saltoMaximo" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">Salto Real</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testSargent.value | number: '1.1-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Resultado</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testSargent.description }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="test-footer">
+                                    <p><strong>Hombres:</strong> Salto real mayor a 70 Excelente, entre 61 y 70 Muy
+                                        bueno, entre 51 y 60
+                                        Arriba del promedio, entre 41 y 50 En el promedio, entre 31 y 40 Por debajo del
+                                        promedio, entre 21 y 30 Pobre y menor a 21 Muy pobre</p>
+                                    <hr>
+                                    <p><strong>Mujeres:</strong> Salto real mayor a 60 Excelente, entre 51 y 60 Muy
+                                        bueno, entre 41 y 50
+                                        Arriba del promedio, entre 31 y 40 En el promedio, entre 21 y 30 Por debajo del
+                                        promedio, entre 11 y 20 Pobre y menor a 11 Muy pobre</p>
+                                </div>
+                            </div>
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Test de Rufier</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Test</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="primerPulso">Primer pulso</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="primerPulso" type="number"
+                                                        [(ngModel)]="valoracion.tests.primerPulso" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="segundoPulso">Segundo pulso</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="segundoPulso" type="number"
+                                                        [(ngModel)]="valoracion.tests.segundoPulso" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="tercerPulso">Tercer pulso</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="tercerPulso" type="number"
+                                                        [(ngModel)]="valoracion.tests.tercerPulso" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">I =</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testRufier.value | number: '1.1-2'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Resultado</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testRufier.description }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="test-footer">
+                                    <p>entre 0 y 1 Excelente | entre 1 y 5 Muy bueno | entre 6 y 10 Regular | entre 11 y
+                                        15 Malo | mayor a 15 Muy Malo</p>
+                                </div>
+                            </div>
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Test de Wells</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Test</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="flexibilidad">Flexibilidad</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="flexibilidad" type="number"
+                                                        [(ngModel)]="valoracion.tests.flexibilidad" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">Resultado</td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testWells.description }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="pn-tests-fq-cardiaca" title="Tests de Frecuencia Cardiaca">
+                <ng-template ngbPanelContent>
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Test de Leger</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered table-leger">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4">Test</th>
+                                            </tr>
+                                            <tr class="subtitle">
+                                                <th>No.</th>
+                                                <th>Frecuencia cardiaca</th>
+                                                <th>Velocidad</th>
+                                                <th>Vo2_Max</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of [].constructor(8); let i = index">
+                                                <td scope="row">
+                                                    {{i+1}}
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="legerValue" type="number" [(ngModel)]="legerValues[i]"
+                                                        appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                        *ngIf="i == 0 || legerValues[i-1]" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                                <td scope="row">{{getLegerVelocidad(i)}}</td>
+                                                <td scope="row">{{getLegerVo2Max(i)}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered table-leger">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4">Test</th>
+                                            </tr>
+                                            <tr class="subtitle">
+                                                <th>No.</th>
+                                                <th>Frecuencia cardiaca</th>
+                                                <th>Velocidad</th>
+                                                <th>Vo2_Max</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of [].constructor(8); let i = index">
+                                                <td scope="row">
+                                                    {{i+8}}
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="legerValue" type="number" [(ngModel)]="legerValues[i+8]"
+                                                        appOnlyNumber [ngModelOptions]="{standalone: true}"
+                                                        *ngIf="legerValues[i+8-1]" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                                <td scope="row">{{getLegerVelocidad(i+8)}}</td>
+                                                <td scope="row">{{getLegerVo2Max(i+8)}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="test-footer">
+                                    <h5 class="leger-result">
+                                        {{ valoracion.tests.testLeger.value ? valoracion.tests.testLeger.description + '
+                                        (Vo2Max = '+ valoracion.tests.testLeger.value +')' : 'Pendiente'}}
+                                    </h5>
+                                    <hr>
+                                    <p><strong>Hombres:</strong> menor a 25 Baja, entre 25 y 33 Regular, entre
+                                        34 y 42 Media, entre 43 y 52 Buena y mayor a 52 Excelente</p>
+                                    <p> <strong>Mujeres:</strong> menor a 24 Baja, entre 24 y 30 Regular, entre 31 y 37
+                                        Media, entre 38 y 48 Buena y mayor a 48 Excelente</p>
+                                </div>
+                            </div>
+
+                            <div class="test-container card">
+                                <div class="test-header">
+                                    <h6>Test de Frecuencia Cardiaca</h6>
+                                </div>
+                                <div class="test-body">
+                                    <table class="table table-bordered" style="max-width: 40%;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Test</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="primerPulso">Edad</label>
+                                                </td>
+                                                <td scope="row">
+                                                    {{valoracion.tests.edad + ' años'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="primerPulso">Frecuencia Máxima</label>
+                                                </td>
+                                                <td scope="row">
+                                                    {{valoracion.tests.feqMaxima}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="feqMaximaLeger">Frecuencia Máxima por Leger</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="feqMaximaLeger" type="number"
+                                                        [(ngModel)]="valoracion.tests.feqMaximaLeger" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">
+                                                    <label for="feqReposo">Frecuencia en reposo</label>
+                                                </td>
+                                                <td scope="row">
+                                                    <input id="feqReposo" type="number"
+                                                        [(ngModel)]="valoracion.tests.feqReposo" appOnlyNumber
+                                                        [ngModelOptions]="{standalone: true}" placeholder="0,0"
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-bordered" style="max-width: 40%;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Resultado por edad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados">
+                                            <tr>
+                                                <td scope="row"><b>Rehabilitación</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorEdad.feqRehabilitacion |
+                                                    number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Quema de Grasa</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorEdad.feqQuemaGrasa | number:
+                                                    '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Desarrollo de la resistencia</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorEdad.feqDlloResistencia |
+                                                    number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Desarrollo de Potencia Aeróbica</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorEdad.feqDlloPotenciaAerobica |
+                                                    number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Aumento Metabolismo Anaeróbico</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorEdad.feqMetabolismoAnaerobico |
+                                                    number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                        <thead
+                                            *ngIf="valoracion.tests.feqMaximaLeger && valoracion.tests.feqMaximaLeger != 0">
+                                            <tr>
+                                                <th colspan="2">Resultado por Leger</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultados"
+                                            *ngIf="valoracion.tests.feqMaximaLeger && valoracion.tests.feqMaximaLeger != 0">
+                                            <tr>
+                                                <td scope="row"><b>Rehabilitación</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorLeger.feqRehabilitacion |
+                                                    number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Quema de Grasa</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorLeger.feqQuemaGrasa | number:
+                                                    '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Desarrollo de la resistencia</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorLeger.feqDlloResistencia |
+                                                    number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Desarrollo de Potencia Aeróbica</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorLeger.feqDlloPotenciaAerobica |
+                                                    number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row"><b>Aumento Metabolismo Anaeróbico</b></td>
+                                                <td scope="row" class="center-col">
+                                                    {{valoracion.tests.testFeqCardiacaPorLeger.feqMetabolismoAnaerobico
+                                                    | number: '1.1-1'}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="test-footer formulas">
+                                    <p style="margin-bottom: 5px !important;"><b>FÓRMULAS</b></p>
+                                    <p><b>Frecuencia de Reserva = </b>Frecuencia Máxima - Frecuencia en reposo</p>
+                                    <p><b>Rehabilitación = </b>Frecuencia de Reserva*0.5 + Frecuencia en reposo</p>
+                                    <p><b>Quema de Grasa = </b>Frecuencia de Reserva*0.6 + Frecuencia en reposo</p>
+                                    <p><b>Desarrollo de la Resistencia = </b>Frecuencia de Reserva*0.7 +
+                                        Frecuencia en reposo
+                                    </p>
+                                    <p><b>Desarrollo de Potencia Aeróbica = </b>Frecuencia de Reserva*0.8 +
+                                        Frecuencia en reposo
+                                    </p>
+                                    <p><b>Aumento Metabolismo Anaeróbico = </b>Frecuencia de Reserva*0.9 +
+                                        Frecuencia en reposo
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+    <div class="row">
+        <div class="form-group mt-3" style="width: 95%;">
+            <label for="observaciones" style="font-size: 1rem;">Observaciones <span
+                    class="opcional">(Opcional)</span></label>
+            <textarea id="observaciones" [(ngModel)]="valoracion.observaciones"
+                style="padding: 0.3rem 0.8rem !important;" [ngModelOptions]="{standalone: true}"
+                class="form-control form-control-sm"></textarea>
+        </div>
+    </div>
+    <div class="row justify-content-md-end mt-3">
+        <button class="btn btn-inverse btn-fill mr-2" (click)="back()">
+            Cancelar
+        </button>
+        <button class="btn btn-success btn-fill mr-3" (click)="save()">
+            Guardar Valoración
+        </button>
+    </div>
+</div>

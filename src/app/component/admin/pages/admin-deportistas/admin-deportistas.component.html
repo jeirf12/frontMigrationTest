@@ -1,0 +1,211 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-7">
+      <button class="btn btn-success btn-fill" (click)="add()">
+        Agregar Usuario
+      </button>
+    </div>
+    <div class="col-5 my-auto">
+      <div class="input-group">
+        <fa-icon
+          [icon]="faSearch"
+          class="input-group-prepend input-group-text"
+        ></fa-icon>
+        <input
+          id="documento"
+          type="text"
+          class="form-control form-control-search"
+          [(ngModel)]="searchKey"
+          [ngModelOptions]="{ standalone: true }"
+          placeholder="Busca por nombre o documento"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <div class="form-group">
+        <label for="instructor">Filtrar por instructor</label>
+        <select
+          id="instructor"
+          class="form-control form-control-sm"
+          [(ngModel)]="instructor.id"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <option selected [value]="-1">Todos</option>
+          <option [value]="item.id" *ngFor="let item of instructoresList">
+            {{ item.primerNombre + " " + item.primerApellido }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-7"></div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <div class="form-group">
+        <label for="dependencia">Tipo de usuario</label>
+        <select
+          id="tipoDocumento"
+          class="form-control form-control-sm"
+          [(ngModel)]="tipoDeportista"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <option selected>Todos</option>
+          <option
+            [value]="item.descripcion"
+            *ngFor="let item of tiposDeportista"
+          >
+            {{ item.descripcion }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-7"></div>
+  </div>
+  <!-- Sección Dependencia -->
+  <div class="row" *ngIf="dependencias.length > 0">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="dependencia">Unidad Academica</label>
+        <select
+          id="dependencia"
+          class="form-control form-control-sm"
+          [(ngModel)]="dependencia.id"
+          [ngModelOptions]="{ standalone: true }"
+          (ngModelChange)="dependenciaChange()"
+        >
+          <option selected [value]="-1">Todas</option>
+          <option selected [value]="item.id" *ngFor="let item of dependencias">
+            {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="form-group"
+        *ngIf="programas.length > 0 && tipoDeportista != 'Administrativo'"
+      >
+        <label for="programa">Programa</label>
+        <select
+          id="programa"
+          class="form-control form-control-sm"
+          [(ngModel)]="programa.id"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <option selected [value]="-1">Todos</option>
+          <option selected [value]="item.id" *ngFor="let item of programas">
+            {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row table-container">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Documento</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Tipo Usuario</th>
+          <th scope="col">Dependencia/Facultad</th>
+          <th scope="col">Programa</th>
+          <!-- <th scope="col">Fecha Nacimiento</th> -->
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="empty-table-msg" *ngIf="deportistas.length === 0">
+          <td colspan="5">No se encontraron datos para esta tabla.</td>
+        </tr>
+        <tr *ngFor="let deportista of deportistas">
+          <td scope="row">
+            <ngb-highlight
+              [result]="deportista.info.documento"
+              [term]="searchKey"
+            ></ngb-highlight>
+          </td>
+          <td scope="row">
+            <ngb-highlight
+              [result]="
+                deportista.info.primerNombre
+              "
+              [term]="searchKey"
+            ></ngb-highlight>
+          </td>
+           <td scope="row">
+            <ngb-highlight
+              [result]="
+                deportista.info.primerApellido
+              "
+              [term]="searchKey"
+            ></ngb-highlight>
+          </td>
+          <td scope="row" class="center-col">
+            {{ deportista.tipoDeportista }}
+          </td>
+          <td scope="row" class="center-col">
+            {{ deportista.dependencia ? deportista.dependencia.nombre : "N/A" }}
+          </td>
+          <td scope="row" class="center-col">
+            {{ deportista.programa ? deportista.programa.nombre : "N/A" }}
+          </td>
+          <!-- <td scope="row" class="center-col">{{ deportista.info.fechaNacimiento | date: 'dd MMMM, yyyy' }}</td> -->
+          <td scope="row" class="center-col padding-sm">
+            <button
+              class="btn btn-primary btn-fill"
+              (click)="view(deportista)"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Ver"
+            >
+              <fa-icon [icon]="faEye"></fa-icon>
+            </button>
+            <button
+              class="btn btn-info btn-fill"
+              (click)="update(deportista)"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Editar"
+            >
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button
+              class="btn btn-danger btn-fill"
+              (click)="delete(deportista)"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Eliminar"
+            >
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </button>
+            <button
+              class="btn btn-warning btn-fill ml-2"
+              (click)="valoracion(deportista)"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Gestionar valoraciones"
+            >
+              <fa-icon [icon]="faHeartbeat"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div
+      class="d-flex justify-content-between p-2"
+      *ngIf="collectionSize > pageSize"
+    >
+      <ngb-pagination
+        [collectionSize]="collectionSize"
+        [(page)]="page"
+        [pageSize]="pageSize"
+      >
+      </ngb-pagination>
+    </div>
+  </div>
+</div>

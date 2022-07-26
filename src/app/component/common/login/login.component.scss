@@ -1,0 +1,99 @@
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  z-index: -2;
+  background: url("~src/assets/img/unicauca/background.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#bandera {
+  position: fixed;
+  background: url("~src/assets/img/unicauca/bandera.png") no-repeat;
+  width: 345px;
+  height: 130px;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#antorcha {
+  position: fixed;
+  background: url("~src/assets/img/unicauca/antorcha.png") no-repeat;
+  width: 251px;
+  height: 592px;
+  right: 15%;
+  top: 0;
+  z-index: -1;
+}
+
+#logoSimca {
+  background: url("~src/assets/img/unicauca/logo-simca.png") no-repeat;
+  width: 101px;
+  height: 101px;
+  margin: 0 auto 10px;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin: 30px auto 5px !important;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+
+    .logoU {
+      background: url("~src/assets/img/unicauca/logo.png") no-repeat;
+      width: 188px;
+      height: 92px;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .separador {
+      background: url("~src/assets/img/unicauca/barra.png") no-repeat;
+      width: 2px;
+      height: 40px;
+      float: left;
+      margin: 25px 10px 0 0;
+    }
+
+    .desc {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 17px;
+      color: #ffffff;
+      padding-top: 27px;
+      width: 235px;
+      float: left;
+    }
+  }
+
+  .login {
+    background: url("~src/assets/img/unicauca/back-login.png") no-repeat;
+    padding: 35px 20px 0;
+    width: 330px;
+    height: 344px;
+    margin-top: 10px;
+  }
+
+  .mensaje {
+    margin-top: 10px;
+    text-align: center !important;
+    font-size: 14px !important;
+  }
+}

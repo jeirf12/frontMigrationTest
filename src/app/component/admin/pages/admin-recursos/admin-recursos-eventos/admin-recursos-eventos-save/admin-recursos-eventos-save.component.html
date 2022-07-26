@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 image-container">
+            <div class="form-group">
+                <label class="hoverable" (click)="onSelectFile()">
+                    <img class="image-file"
+                        [src]="evento.imagen ? urlImagen : './assets/img/evento_default.png'">
+                    <div class="hover-text">Elegir imagen</div>
+                    <div class="background"></div>
+                </label>
+            </div>
+            <fa-icon [icon]="faDelete" class="delete-image" *ngIf="evento.imagen" (click)="deleteFile()">
+            </fa-icon>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input id="titulo" type="text" [(ngModel)]="evento.titulo" [ngModelOptions]="{standalone: true}"
+                    [ngClass]="submitted && !evento.titulo ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                <div *ngIf="submitted && !evento.titulo" class="msg-input-error">Este campo es requerido</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="fechaEvento">Fecha del evento</label>
+                <div class="input-group">
+                    <fa-icon [icon]="faCalendar" class="input-group-prepend input-group-text" (click)="d.toggle()">
+                    </fa-icon>
+                    <input placeholder="yyyy-mm-dd" name="dp" #d="ngbDatepicker" [(ngModel)]="fechaEvento"
+                        [ngModelOptions]="{standalone: true}" ngbDatepicker placement="right"
+                        [ngClass]="submitted && !fechaEvento ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                </div>
+                <div *ngIf="submitted && !fechaEvento" class="msg-input-error">Este campo es requerido</div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="lugar">Lugar</label>
+                <input id="lugar" type="text" [(ngModel)]="evento.lugar" [ngModelOptions]="{standalone: true}"
+                    [ngClass]="submitted && !evento.lugar ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                <div *ngIf="submitted && !evento.lugar" class="msg-input-error">Este campo es requerido</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group mt-3">
+                <label for="contenido" style="font-size: 1rem;">Contenido</label>
+                <textarea id="contenido" [(ngModel)]="evento.contenido" style="padding: 0.3rem 0.8rem !important;"
+                    [ngModelOptions]="{standalone: true}"
+                    [ngClass]="submitted && !evento.contenido ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'"></textarea>
+                <div *ngIf="submitted && !evento.contenido" class="msg-input-error">Este campo es requerido</div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-end mt-3">
+        <button class="btn btn-inverse btn-fill mr-2" (click)="back()">
+            Cancelar
+        </button>
+        <button class="btn btn-success btn-fill mr-3" (click)="save()">
+            Guardar Evento
+        </button>
+    </div>
+</div>

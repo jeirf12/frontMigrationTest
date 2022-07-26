@@ -1,0 +1,241 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h6>Filtros</h6>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="tipoDocumento">Tipo de reporte</label>
+                                <select id="tipoDocumento" class="form-control form-control-sm"
+                                    (change)="onTipoReporteChange()" [(ngModel)]="tipoReporte"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option selected [value]="item.descripcion"
+                                        *ngFor="let item of enumsService.tiposReporte">
+                                        {{item.descripcion}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col" *ngIf="tipoReporte == 'Rango'">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="documento">Desde</label>
+                                        <div class="input-group">
+                                            <fa-icon [icon]="faCalendar" class="input-group-prepend input-group-text"
+                                                (click)="desde.toggle()">
+                                            </fa-icon>
+                                            <input placeholder="yyyy-mm-dd" name="dp" #desde="ngbDatepicker"
+                                                [(ngModel)]="fechaDesde" [ngModelOptions]="{standalone: true}"
+                                                ngbDatepicker placement="bottom" class="form-control form-control-sm"
+                                                (click)="desde.toggle()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="documento">Hasta</label>
+                                        <div class="input-group">
+                                            <fa-icon [icon]="faCalendar" class="input-group-prepend input-group-text"
+                                                (click)="hasta.toggle()">
+                                            </fa-icon>
+                                            <input placeholder="yyyy-mm-dd" name="dp" #hasta="ngbDatepicker"
+                                                [(ngModel)]="fechaHasta" [ngModelOptions]="{standalone: true}"
+                                                ngbDatepicker placement="bottom" class="form-control form-control-sm"
+                                                (click)="hasta.toggle()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3" *ngIf="tipoReporte == 'Anual'">
+                            <div class="form-group">
+                                <label for="tipoDocumento">Selecciona el año</label>
+                                <select id="tipoDocumento" class="form-control form-control-sm"
+                                    (change)="onYearChange()" [(ngModel)]="year" [ngModelOptions]="{standalone: true}">
+                                    <option selected [value]="item" *ngFor="let item of years">
+                                        {{item}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-3" *ngIf="tipoReporte == 'Semestral'">
+                            <div class="form-group">
+                                <label for="tipoDocumento">Selecciona el semestre</label>
+                                <select id="tipoDocumento" class="form-control form-control-sm"
+                                    (change)="onSemesterChange()" [(ngModel)]="semester"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option selected [value]="item" *ngFor="let item of semesters">
+                                        {{item}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col pt-3" *ngIf="tipoReporte == 'Mensual'">
+                            <button class="btn btn-sm btn-primary"
+                                (click)="showMonthPicker()">{{getMonthYear()}}</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check-rk" style="margin-top: 0px;">
+                                <input class="form-check-input" type="checkbox" [(ngModel)]="reporteEspecifico"
+                                    id="reporteEspecifico" data-toggle="toggle" (change)="onReporteEspecificoChange()">
+                                <label class="form-check-label" for="reporteEspecifico">
+                                    Reporte especifico
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="reporteEspecifico">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="tipoDeportista">Tipo Usuario</label>
+                                        <select id="tipoDeportista" class="form-control form-control-sm"
+                                            [(ngModel)]="filtroReporte.tipoDeportista"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <option value="" disabled selected>Selecciona el tipo de usuario</option>
+                                            <option selected [value]="item.descripcion"
+                                                *ngFor="let item of enumsService.tiposDeportista">
+                                                {{item.descripcion}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="tipoDeportista">clasificación</label>
+                                        <select id="tipoDeportista" class="form-control form-control-sm"
+                                            [(ngModel)]="filtroReporte.clasificacion"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <option value="" disabled selected>Selecciona la clasificación</option>
+                                            <option selected [value]="item.descripcion"
+                                                *ngFor="let item of enumsService.tiposClasificacion">
+                                                {{item.descripcion}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="publicsService.dependencias.length > 0">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="dependencia">Dependencia/Facultad</label>
+                                        <select id="dependencia" class="form-control form-control-sm"
+                                            [(ngModel)]="filtroReporte.dependenciaId"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <option value="-1" disabled selected>Selecciona la dependencia</option>
+                                            <option selected [value]="item.id"
+                                                *ngFor="let item of publicsService.dependencias">
+                                                {{item.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group" *ngIf="programas.length > 0">
+                                        <label for="programa">Programa</label>
+                                        <select id="programa" class="form-control form-control-sm"
+                                            [(ngModel)]="filtroReporte.programaId"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <option value="-1" disabled selected>Selecciona el programa</option>
+                                            <option selected [value]="item.id" *ngFor="let item of programas">
+                                                {{item.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-success btn-fill mr-3" (click)="generar()">
+                            Generar Reportes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- activeIds="pn-info" -->
+        <ngb-accordion (panelChange)="panelChange()" *ngIf="showCharts && !reporteEspecifico" [closeOthers]="true" style="width: 100%;">
+            <ngb-panel id="pn-general" title="Reporte General">
+                <ng-template ngbPanelContent>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col">
+                                <app-reporte-chart [dataChart]="generalInscripciones"></app-reporte-chart>
+                            </div>
+                            <div class="col">
+                                <app-reporte-chart [dataChart]="generalAsistencia"></app-reporte-chart>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="pn-info" title="Reporte Información Personal">
+                <ng-template ngbPanelContent>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col">
+                                <app-reporte-chart [dataChart]="generoInscripciones"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="edadInscripciones"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="tipoInscripciones"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="clasificacionInscripciones"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="patologiaInscripciones"></app-reporte-chart>
+                            </div>
+                            <div class="col">
+                                <app-reporte-chart [dataChart]="generoAsistencia"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="edadAsistencia"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="tipoAsistencia"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="clasificacionAsistencia"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="patologiaAsistencia"></app-reporte-chart>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="pn-dependencias" title="Reporte Unidades Acádemicas">
+                <ng-template ngbPanelContent>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col">
+                                <app-reporte-chart [dataChart]="dependenciaInscripciones"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="programaInscripciones"></app-reporte-chart>
+                            </div>
+                            <div class="col">
+                                <app-reporte-chart [dataChart]="dependenciaAsistencia"></app-reporte-chart>
+                                <app-reporte-chart [dataChart]="programaAsistencia"></app-reporte-chart>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+
+        <div class="card" *ngIf="showCharts && reporteEspecifico">
+            <div class="card-header">
+                <h6>Reporte Especifico</h6>
+            </div>
+            <div class="card-body">
+                <div class="container.fluid">
+                    <div class="row">
+                        <div class="col">
+                            <app-reporte-chart [dataChart]="especificoInscripciones"></app-reporte-chart>
+                        </div>
+                        <div class="col">
+                            <app-reporte-chart [dataChart]="especificoAsistencia"></app-reporte-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

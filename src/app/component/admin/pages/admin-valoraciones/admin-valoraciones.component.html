@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 photo-container">
+            <div class="form-group">
+                <label class="photo-profile-container">
+                    <img class="photo-profile"
+                        [src]="deportista.info.foto ? urlFoto : './assets/img/user_default.png'">
+                    <div class="background"></div>
+                </label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col">
+                    <div class="deportista-info">
+                        <label for="nombre">Nombre:</label>
+                        <p>{{deportista.info.primerNombre + ' ' + (deportista.info.segundoNombre ? deportista.info.segundoNombre : '')}}</p>
+                    </div>
+                    <div class="deportista-info">
+                        <label for="apellidos">Apellidos:</label>
+                        <p>{{deportista.info.primerApellido + ' ' + (deportista.info.segundoApellido ? deportista.info.segundoApellido : '')}}
+                        </p>
+                    </div>
+                    <div class="deportista-info">
+                        <label for="documento">Documento:</label>
+                        <p>{{deportista.info.documento | number:'':'es-CO'}}</p>
+                    </div>
+                    <div class="deportista-info">
+                        <label for="genero">Genero:</label>
+                        <p>{{deportista.info.genero == 'M' ? 'Masculino' : 'Femenino'}}</p>
+                    </div>
+                    <div class="deportista-info">
+                        <label for="edad">Edad:</label>
+                        <p>{{ edadDeportista + ' años' }}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="deportista-info" *ngIf="medidas">
+                        <label for="peso">Peso:</label>
+                        <p>{{medidas.peso + ' kg'}}</p>
+                    </div>
+                    <div class="deportista-info" *ngIf="medidas">
+                        <label for="talla">Talla:</label>
+                        <p>{{medidas.talla + ' cm'}}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="clasificacion">Clasificacion del deportista</label>
+                <select id="clasificacion" class="form-control form-control-sm" (change)="onClasificacionChange()"
+                    [(ngModel)]="deportista.clasificacion" [ngModelOptions]="{standalone: true}">
+                    <option [value]="item.descripcion" *ngFor="let item of tiposClasificacion">
+                        {{item.descripcion}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <button class="btn btn-success btn-fill" (click)="add()">
+                Agregar Valoración
+            </button>
+            <button class="btn btn-warning btn-fill ml-3" (click)="compare()" *ngIf="collectionSize >= 2">
+                Comparar Valoraciones
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="collectionSize === 0">
+                    <td colspan="5">
+                        No se encontraron datos para esta tabla.
+                    </td>
+                </tr>
+                <tr *ngFor="let valoracion of valoraciones">
+                    <td scope="row" class="center-col" style="text-transform: capitalize;">
+                        {{ valoracion.fecha | date: 'EEEE dd \'de\' MMMM, yyyy' | titlecase }}</td>
+                    <td scope="row" class="center-col padding-sm">
+                        <button class="btn btn-info btn-fill" (click)="update(valoracion)" data-toggle="tooltip"
+                            data-placement="top" title="Editar">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>
+                        <button class="btn btn-danger btn-fill" (click)="delete(valoracion)" data-toggle="tooltip"
+                            data-placement="top" title="Eliminar">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        </button>
+                        <button class="btn btn-warning btn-fill" (click)="export(valoracion)" data-toggle="tooltip"
+                            data-placement="top" title="Exportar valoración">
+                            <fa-icon [icon]="faFilePdf"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2" *ngIf="collectionSize > pageSize">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>

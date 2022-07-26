@@ -1,0 +1,103 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="nombre">Nombre del grupo</label>
+                <input id="nombre" type="text" [(ngModel)]="grupo.nombre" [ngModelOptions]="{standalone: true}"
+                    [ngClass]="submitted && !grupo.nombre ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                <div *ngIf="submitted && !grupo.nombre" class="msg-input-error">Este campo es requerido</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="showInstructor">
+        <div class="col-5">
+            <label for="instructor">Instructor a cargo</label>
+            <select id="instructor" class="form-control form-control-sm" [(ngModel)]="grupo.instructor.id"
+                [ngModelOptions]="{standalone: true}">
+                <option [value]="item.id" *ngFor="let item of instructoresList">
+                    {{item.primerNombre + ' ' + item.primerApellido}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 40px;">
+        <div class="col-2">
+            <select id="dia" class="form-control form-control-sm" [(ngModel)]="dia"
+                [ngModelOptions]="{standalone: true}">
+                <option [value]="i" *ngFor="let item of weekDays; let i = index">
+                    {{item}}
+                </option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select id="horaInicio" class="form-control form-control-sm" [(ngModel)]="horaInicio"
+                [ngModelOptions]="{standalone: true}">
+                <option [value]="item" *ngFor="let item of hours">
+                    {{getCompleteHour(item)}}
+                </option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select id="horaFin" class="form-control form-control-sm" [(ngModel)]="horaFin"
+                [ngModelOptions]="{standalone: true}">
+                <option [value]="item" *ngFor="let item of hoursEnd">
+                    {{getCompleteHour(item)}}
+                </option>
+            </select>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-warning btn-fill btn-sm" (click)="addHorario()">
+                Agregar Horario
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Dia de la semana</th>
+                        <th scope="col">Hora inicio</th>
+                        <th scope="col">Hora finalización</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="empty-table-msg" *ngIf="grupo.horariosList.length === 0">
+                        <td colspan="5">
+                            No se encontraron datos para esta tabla.
+                        </td>
+                    </tr>
+                    <tr *ngFor="let horario of grupo.horariosList; let i = index">
+                        <td scope="row" class="center-col">
+                            {{getCompleteDay(horario.dia)}}
+                        </td>
+                        <td scope="row" class="center-col">
+                            {{getCompleteHour(horario.horaInicio)}}
+                        </td>
+                        <td scope="row" class="center-col">
+                            {{getCompleteHour(horario.horaFin)}}
+                        </td>
+                        <td scope="row" class="center-col padding-sm">
+                            <button class="btn btn-danger btn-fill" (click)="deleteHorario(i)" data-toggle="tooltip"
+                                data-placement="top" title="Eliminar">
+                                <fa-icon [icon]="faTrashAlt"></fa-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row justify-content-md-end mt-3">
+        <button class="btn btn-inverse btn-fill mr-2" (click)="back()">
+            Cancelar
+        </button>
+        <button class="btn btn-success btn-fill mr-3" (click)="save()">
+            Guardar Grupo
+        </button>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <h4 class="modal-title">Detalle de Grupo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="nombre">Nombre del grupo</label>
+                    <p>{{item.nombre}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="nombre">Instructor a cargo</label>
+                    <p>{{item.instructor.primerNombre + ' ' + item.instructor.primerApellido}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="item.horariosList">
+            <div class="col-8">
+                <div class="form-group">
+                    <label for="nombre">Horarios</label>
+                    <p *ngFor="let horario of item.horariosList">{{getHorarioCompleto(horario)}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-primary" (click)="activeModal.close('Close click')">Aceptar</button>
+</div>

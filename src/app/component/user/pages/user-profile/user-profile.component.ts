@@ -1,0 +1,292 @@
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { IconDefinition, faCalendar, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { AbrevEnum } from 'src/app/model/enums/abrev-enum';
+import { Usuario } from 'src/app/model/entity/usuario';
+import { EnumsService } from 'src/app/service/enums.service';
+import { NgxImageCompressService } from 'ngx-image-compress';
+import { NgbDatepickerI18n, NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AppDatePickerI18n } from 'src/app/util/app-date-picker-i18n';
+import { DateUtil } from 'src/app/util/date-util';
+import { AppUtil } from 'src/app/util/app-util';
+import { TipoUsuario } from 'src/app/model/enums/tipo-usuario';
+import { DialogsService } from 'src/app/service/dialogs.service';
+import { DeportistasService } from 'src/app/service/deportistas.service';
+import { Deportista } from 'src/app/model/entity/deportista';
+import { SimpleEnum } from 'src/app/model/enums/simple-enum';
+import { TipoClasificacion } from 'src/app/model/enums/tipo-clasificacion';
+import { AuthenticationService } from 'src/app/service/authentication.service';
+import { PublicsService } from 'src/app/service/publics.service';
+import { Dependencia } from 'src/app/model/entity/dependencia';
+import { TipoDeportista } from 'src/app/model/enums/tipo-deportista';
+import { TipoDependencia } from 'src/app/model/enums/tipo-dependencia';
+import { Programa } from 'src/app/model/entity/programa';
+import { SimpleEnumCheck } from 'src/app/model/simple-enum-check';
+import { UserDeportistaService } from 'src/app/service/user-deportista.service';
+
+@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.scss'],
+  providers: [
+    { provide: NgbDatepickerI18n, useClass: AppDatePickerI18n },
+    NgbDatepickerConfig
+  ]
+})
+export class UserProfileComponent implements OnInit {
+
+  faCalendar: IconDefinition = faCalendar;
+  faDelete: IconDefinition = faTrashAlt;
+
+  tiposDocumento: AbrevEnum[];
+  tiposDeportista: SimpleEnum[];
+  tiposGenero: AbrevEnum[];
+  tiposPatologia: SimpleEnumCheck[];
+  dependenciasList: Dependencia[] = [];
+
+  info: Usuario = new Usuario();
+  deportista: Deportista = new Deportista();
+  fechaNacimiento: NgbDateStruct;
+  submitted: boolean = false;
+  showPasswordError: boolean = false;
+  nombreConyugue: string = "«Ingresa el documento»";
+  tienePatologias: boolean = false;
+
+  private isBuildingUsername: boolean = false;
+  private isBuildingpassword: boolean = false;
+
+  constructor(
+    private dialogsService: DialogsService,
+    private datePickerConfig: NgbDatepickerConfig,
+    private imageCompressService: NgxImageCompressService,
+    private authenticationService: AuthenticationService,
+    private enumsService: EnumsService,
+    private publicsService: PublicsService,
+    private userDeportistaService: UserDeportistaService,
+    private location: Location
+  ) {
+    this.loadHelperData();
+    this.datePickerConfig.minDate = DateUtil.dateToStructure(new Date(-946753200000));
+    this.datePickerConfig.maxDate = DateUtil.dateToStructure(new Date());
+    this.userDeportistaService.getDeportistaById(this.authenticationService.currentUser.id).subscribe(response => {
+      this.deportista = response;
+      this.info = this.deportista.info;
+      this.fechaNacimiento = DateUtil.dateToStructure(this.info.fechaNacimiento);
+      if (this.deportista.conyugue) {
+        this.nombreConyugue = this.deportista.conyugue.info.primerNombre + " " + this.deportista.conyugue.info.primerApellido;
+      } else {
+        this.deportista.conyugue = new Deportista();
+        this.deportista.conyugue.info = new Usuario();
+      }
+      if (!this.deportista.dependencia) {
+        this.deportista.dependencia = new Dependencia();
+        this.deportista.dependencia.id = 1;
+      }
+      if (!this.deportista.programa) {
+        this.deportista.programa = new Programa();
+        this.deportista.programa.id = 4;
+      }
+      if (this.deportista.patologias) {
+        this.tienePatologias = true;
+        const split = this.deportista.patologias.split("|");
+        this.tiposPatologia.forEach(patologia => {
+          split.forEach(s => {
+            if (patologia.descripcion == s) {
+              patologia.isChecked = true;
+            }
+          });
+        });
+      }
+    }, error => {
+      console.error("error", error);
+    });
+  }
+
+  ngOnInit() {
+  }
+
+  loadHelperData() {
+    this.tiposDocumento = this.enumsService.tiposDocumento;
+    this.tiposDeportista = this.enumsService.tiposDeportista;
+    this.tiposGenero = this.enumsService.tiposGenero;
+    this.tiposPatologia = this.enumsService.tiposPatologia;
+    this.dependenciasList = this.publicsService.dependencias;
+  }
+
+  loadFuncionario() {
+    let query = this.deportista.conyugue.info.documento;
+    if (query && query.length > 6) {
+      this.userDeportistaService.getDeportistaByDocumento(query)
+        .subscribe(response => {
+          if (response) {
+            this.deportista.conyugue = response;
+            this.nombreConyugue = this.deportista.conyugue.info.primerNombre + " " + this.deportista.conyugue.info.primerApellido;
+          } else {
+            this.nombreConyugue = "«El funcionario no existe»";
+          }
+        }, error => {
+          this.nombreConyugue = "«El funcionario no existe»";
+        });
+    } else {
+      this.nombreConyugue = "«Ingresa el documento»";
+    }
+  }
+
+  get dependencias(): Dependencia[] {
+    if (this.dependenciasList) {
+      switch (this.deportista.tipoDeportista) {
+        case TipoDeportista.ESTUDIANTE.descripcion:
+        case TipoDeportista.DOCENTE.descripcion:
+          return this.dependenciasList.filter(dependencia => dependencia.tipoDependencia == TipoDependencia.FACULTAD.descripcion);
+        case TipoDeportista.ADMINISTRATIVO.descripcion:
+          return this.dependenciasList.filter(dependencia => dependencia);
+        default:
+          this.deportista.dependencia.id = null;
+          this.deportista.programa.id = null;
+          return [];
+      }
+    } else {
+      this.deportista.dependencia.id = null;
+      this.deportista.programa.id = null;
+      return [];
+    }
+  }
+
+  get programas(): Programa[] {
+    if (this.dependenciasList && this.deportista.dependencia.id) {
+      return this.dependenciasList.find(dependencia => dependencia.id == this.deportista.dependencia.id)
+        .programasList.filter(programa => programa);
+    } else {
+      this.deportista.programa.id = null;
+      return [];
+    }
+  }
+
+  save() {
+    this.submitted = true;
+    if (this.validateForm()) {
+      this.info.fechaNacimiento = DateUtil.structureToDate(this.fechaNacimiento);
+      this.deportista.info = this.info;
+      this.validateInfoBeforeSave();
+      this.userDeportistaService.saveProfile(this.deportista).subscribe(response => {
+        if (response.success) {
+          this.dialogsService.showToast(response.body, true);
+          this.back();
+        } else {
+          this.dialogsService.showToast(response.body, false);
+        }
+      }, error => {
+        console.error("error", error);
+        const msg = "No se pudo actualizar el perfil, intente de nuevo";
+        this.dialogsService.showToast(msg, false);
+      });
+    } else {
+      this.dialogsService.showToast("Debe completar los campos obligatorios", false);
+    }
+  }
+
+  back() {
+    this.location.back();
+  }
+
+  validateForm(): boolean {
+    this.validatePassword();
+
+    return !(!this.info.documento || !this.info.username ||
+      this.showPasswordError || !this.info.primerNombre || !this.info.primerApellido || !this.fechaNacimiento ||
+      (this.deportista.tipoDeportista == TipoDeportista.FAMILIAR.descripcion && !this.deportista.conyugue));
+  }
+
+  buildUsername() {
+    if (!this.info.username || this.isBuildingUsername) {
+      if (this.info.primerNombre && this.info.primerApellido) {
+        this.isBuildingUsername = true;
+        this.info.username = AppUtil.removeSpecialCaracters(this.info.primerNombre + "." + this.info.primerApellido).toLowerCase();
+      } else {
+        this.isBuildingUsername = false;
+        this.info.username = null;
+      }
+    }
+  }
+
+  buildPassword() {
+    if (!this.info.password || this.isBuildingpassword) {
+      if (this.info.documento) {
+        this.isBuildingpassword = true;
+        this.info.password = this.info.documento;
+      } else {
+        this.isBuildingpassword = false;
+        this.info.password = null;
+      }
+    }
+  }
+
+  tipoUsuarioChange() {
+    if (this.deportista.tipoDeportista != TipoDeportista.FAMILIAR.descripcion) {
+      this.deportista.dependencia.id = 1;
+      this.deportista.programa.id = 4;
+    }
+  }
+
+  dependenciaChange() {
+    this.deportista.programa.id = this.dependenciasList.find(dependencia => dependencia.id == this.deportista.dependencia.id).programasList[0].id;
+  }
+
+  validateUsername() {
+    this.info.username = AppUtil.removeSpecialCaracters(this.info.username).toLowerCase();
+  }
+
+  validatePassword() {
+    this.showPasswordError = this.info.password && this.info.password.length < 6;
+  }
+
+  validateInfoBeforeSave() {
+    switch (this.deportista.tipoDeportista) {
+      case TipoDeportista.FAMILIAR.descripcion:
+        this.deportista.dependencia = null;
+        this.deportista.programa = null;
+        break;
+      case TipoDeportista.ADMINISTRATIVO.descripcion:
+        this.deportista.conyugue = null;
+        this.deportista.programa = null;
+        break;
+      default:
+        this.deportista.conyugue = null;
+        break;
+    }
+    if (this.tienePatologias) {
+      this.deportista.patologias = "";
+      this.tiposPatologia.forEach(patologia => {
+        if (patologia.isChecked) {
+          if (this.deportista.patologias == "") {
+            this.deportista.patologias = patologia.descripcion;
+          } else {
+            this.deportista.patologias += "|" + patologia.descripcion;
+          }
+        }
+      })
+    } else {
+      this.deportista.patologias = null;
+    }
+  }
+
+  onSelectFile() {
+    this.imageCompressService.uploadFile().then(({ image, orientation }) => {
+      this.imageCompressService.compressFile(image, orientation, 50, 50).then(result => {
+        let imageSplit = result.split(",");
+        this.info.fotoPrefix = imageSplit[0];
+        this.info.foto = imageSplit[1];
+      })
+    });
+  }
+
+  deleteFile() {
+    this.info.foto = null;
+    this.info.fotoPrefix = null;
+  }
+
+  get urlFoto(): string {
+    return this.info.fotoPrefix + "," + this.info.foto;
+  }
+
+}

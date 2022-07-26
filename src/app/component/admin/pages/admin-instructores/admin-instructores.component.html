@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-7">
+            <button class="btn btn-success btn-fill" (click)="add()">
+                Agregar Instructor
+            </button>
+        </div>
+        <div class="col-5 my-auto">
+            <div class="input-group">
+                <fa-icon [icon]="faSearch" class="input-group-prepend input-group-text"></fa-icon>
+                <input id="documento" type="text" class="form-control form-control-search" [(ngModel)]="searchKey"
+                    [ngModelOptions]="{standalone: true}" placeholder="Busca por nombre o documento">
+            </div>
+        </div>
+    </div>
+    <div class="row table-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="instructores.length === 0">
+                    <td colspan="5">
+                        No se encontraron datos para esta tabla.
+                    </td>
+                </tr>
+                <tr *ngFor="let instructor of instructores">
+                    <td scope="row">
+                        <ngb-highlight [result]="instructor.documento" [term]="searchKey"></ngb-highlight>
+                    </td>
+                    <td scope="row">
+                        <ngb-highlight [result]="instructor.primerNombre + ' ' + instructor.primerApellido"
+                            [term]="searchKey"></ngb-highlight>
+                    </td>
+                    <td scope="row" class="center-col">{{ instructor.username }}</td>
+                    <td scope="row" class="center-col padding-sm">
+                        <button class="btn btn-primary btn-fill" (click)="view(instructor)" data-toggle="tooltip"
+                            data-placement="top" title="Ver">
+                            <fa-icon [icon]="faEye"></fa-icon>
+                        </button>
+                        <button class="btn btn-info btn-fill" (click)="update(instructor)" data-toggle="tooltip"
+                            data-placement="top" title="Editar">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>
+                        <button class="btn btn-danger btn-fill" (click)="delete(instructor)" data-toggle="tooltip"
+                            data-placement="top" title="Eliminar">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2" *ngIf="collectionSize > pageSize">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,164 @@
+<div class="container-fluid">
+    <!-- Seccion Foto, Documento y Nombre -->
+    <div class="row">
+        <div class="col-3 photo-container">
+            <div class="form-group">
+                <label class="hoverable" (click)="onSelectFile()">
+                    <img class="photo-profile"
+                        [src]="instructor.foto ? urlFoto : './assets/img/user_default.png'">
+                    <div class="hover-text">Elegir imagen</div>
+                    <div class="background"></div>
+                </label>
+            </div>
+            <fa-icon [icon]="faDelete" class="delete-photo" *ngIf="instructor.foto" (click)="deleteFile()">
+            </fa-icon>
+        </div>
+        <div class="col-9 fileds-container">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="tipoDocumento">Tipo de documento</label>
+                        <select id="tipoDocumento" class="form-control form-control-sm"
+                            [(ngModel)]="instructor.tipoDocumento" [ngModelOptions]="{standalone: true}">
+                            <option selected [value]="item.abreviatura" *ngFor="let item of tiposDocumento">
+                                {{item.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="documento">Documento</label>
+                        <input id="documento" type="text" [(ngModel)]="instructor.documento"
+                            [ngModelOptions]="{standalone: true}" (ngModelChange)="buildPassword()"
+                            [ngClass]="submitted && !instructor.documento ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                        <div *ngIf="submitted && !instructor.documento" class="msg-input-error">Este campo es requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="primerNombre">Primer nombre</label>
+                        <input id="primerNombre" type="text" [(ngModel)]="instructor.primerNombre"
+                            [ngModelOptions]="{standalone: true}" (ngModelChange)="buildUsername()"
+                            [ngClass]="submitted && !instructor.primerNombre ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                        <div *ngIf="submitted && !instructor.primerNombre" class="msg-input-error">Este campo es
+                            requerido</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="segundoNombre">Segundo nombre <span class="opcional">(Opcional)</span></label>
+                        <input id="segundoNombre" type="text" class="form-control form-control-sm"
+                            [(ngModel)]="instructor.segundoNombre" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="primerApellido">Primer apellido</label>
+                        <input id="primerApellido" type="text" [(ngModel)]="instructor.primerApellido"
+                            [ngModelOptions]="{standalone: true}" (ngModelChange)="buildUsername()"
+                            [ngClass]="submitted && !instructor.primerApellido ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                        <div *ngIf="submitted && !instructor.primerApellido" class="msg-input-error">Este campo es
+                            requerido
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="segundoApellido">Segundo apellido <span class="opcional">(Opcional)</span></label>
+                        <input id="segundoApellido" type="text" class="form-control form-control-sm"
+                            [(ngModel)]="instructor.segundoApellido" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Seccion Autenticación -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <input id="username" type="text" [(ngModel)]="instructor.username" [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="validateUsername()"
+                    [ngClass]="submitted && !instructor.documento ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                <div *ngIf="submitted && !instructor.username" class="msg-input-error">Este campo es requerido
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input id="password" type="text" [(ngModel)]="instructor.password" [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="validatePassword()"
+                    [ngClass]="submitted && (!instructor.password || showPasswordError) ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                <div *ngIf="showPasswordError" class="msg-input-error">La contraseña debe tener minimo 6
+                    carácteres
+                </div>
+                <div *ngIf="submitted && !instructor.password" class="msg-input-error">Este campo es
+                    requerido
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+
+    </div>
+    <!-- Seccion Genero, Fecha nacimiento e Informacion de contacto -->
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="documento">Fecha de nacimiento</label>
+                <div class="input-group">
+                    <fa-icon [icon]="faCalendar" class="input-group-prepend input-group-text" (click)="d.toggle()">
+                    </fa-icon>
+                    <input placeholder="yyyy-mm-dd" name="dp" #d="ngbDatepicker" [(ngModel)]="fechaNacimiento"
+                        [ngModelOptions]="{standalone: true}" ngbDatepicker placement="right"
+                        [ngClass]="submitted && !fechaNacimiento ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm'">
+                </div>
+                <div *ngIf="submitted && !fechaNacimiento" class="msg-input-error">Este campo es requerido</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="genero">Genero</label>
+                <select id="genero" class="form-control form-control-sm" [(ngModel)]="instructor.genero"
+                    [ngModelOptions]="{standalone: true}">
+                    <option selected [value]="item.abreviatura" *ngFor="let item of tiposGenero">
+                        {{item.descripcion}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="celular">Email <span class="opcional">(Opcional)</span></label>
+                <input id="celular" type="text" class="form-control form-control-sm" [(ngModel)]="instructor.email"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="telefono">Teléfono <span class="opcional">(Opcional)</span></label>
+                <input id="telefono" type="text" class="form-control form-control-sm" [(ngModel)]="instructor.telefono"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+    </div>
+    <!-- Sección Botones -->
+    <div class="row justify-content-md-end mt-3">
+        <button class="btn btn-inverse btn-fill mr-2" (click)="back()">
+            Cancelar
+        </button>
+        <button class="btn btn-success btn-fill mr-3" (click)="save()">
+            Guardar Pefil
+        </button>
+    </div>
+</div>

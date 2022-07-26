@@ -1,0 +1,16 @@
+<div class="items-container">
+    <div class="inscripcion-container" *ngFor="let inscripcion of inscripcionesList">
+        <div class="inscripcion-header">
+            <h6>{{inscripcion.grupo.nombre}}</h6>
+            <h6>{{getMonthFullName(inscripcion)}}</h6>
+        </div>
+        <div class="inscripcion-body">
+            <p *ngFor="let classDate of getAllClassDaysOfMonth(inscripcion)">
+                {{classDate | date: 'EEEE dd MMMM, yyyy'}}</p>
+        </div>
+        <div class="inscripcion-footer">
+            <h6>Total asistencias en el mes</h6>
+            <h6>{{getAllClassDaysOfMonth(inscripcion).length}}</h6>
+        </div>
+    </div>
+</div>

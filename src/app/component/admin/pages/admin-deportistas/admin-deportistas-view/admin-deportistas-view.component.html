@@ -1,0 +1,153 @@
+<div class="modal-header">
+    <h4 class="modal-title">Detalle de usuario</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3 photo-container">
+                <div class="form-group">
+                    <label class="photo-profile-container">
+                        <img class="photo-profile"
+                            [src]="item.info.foto ? urlFoto : './assets/img/user_default.png'">
+                        <div class="background"></div>
+                    </label>
+                </div>
+            </div>
+            <div class="col-9 fileds-container">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="tipoDocumento">Tipo de documento</label>
+                            <p>{{tipoDocumento}}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="documento">Documento</label>
+                            <p>{{item.info.documento}}</p>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="primerNombre">Primer nombre</label>
+                            <p>{{item.info.primerNombre}}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="segundoNombre">Segundo nombre</label>
+                            <p>{{item.info.segundoNombre ? item.info.segundoNombre : '---'}}</p>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="primerApellido">Primer apellido</label>
+                            <p>{{item.info.primerApellido}}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="segundoApellido">Segundo apellido</label>
+                            <p>{{item.info.segundoApellido ? item.info.segundoApellido : '---'}}</p>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="username">Nombre de usuario</label>
+                    <p>{{item.info.username}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="cargo">Tipo de usuario</label>
+                    <p>{{tipoUsuario}}</p>
+                </div>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de nacimiento</label>
+                    <p>{{item.info.fechaNacimiento | date : 'yyyy-MM-dd'}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="genero">Genero</label>
+                    <p>{{tipoGenero}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <p>{{item.info.email ? item.info.email : '---'}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <p>{{item.info.telefono ? item.info.telefono : '---'}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="item.dependencia">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="dependencia">UnidadAcademica</label>
+                    <p>{{item.dependencia.nombre}}</p>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group" *ngIf="item.programa">
+                    <label for="programa">Programa</label>
+                    <p>{{item.programa.nombre}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="item.conyugue">
+            <div class="col">
+                <div class="form-group">
+                    <label for="conyugueDocumento">Documento del conyugue</label>
+                    <p>{{item.conyugue.info.documento}}</p>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="conyugueNombre">Nombre del conyugue</label>
+                    <p>{{item.conyugue.info.primerNombre +' '+ item.conyugue.info.primerApellido}}</p>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row" *ngIf="item.patologias">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="patologias">Patologias</label>
+                    <p style="white-space: pre-line;">{{item.patologias }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-primary" (click)="activeModal.close('Close click')">Aceptar</button>
+</div>

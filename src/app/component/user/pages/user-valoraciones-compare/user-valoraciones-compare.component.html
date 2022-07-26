@@ -1,0 +1,445 @@
+<div class="container-fluid" style="margin-bottom: 30px;">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="header">
+                        <th scope="col" colspan="2">Variables</th>
+                        <th scope="col" class="space"></th>
+                        <th scope="col" colspan="2">Variables</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" class="tlabel">Peso (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.peso | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Peso (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.peso | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Talla (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.talla | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Talla (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.talla | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Triceps (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.triceps | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Triceps (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.triceps | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">SubEscapular (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.subEscapular | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">SubEscapular (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.subEscapular | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Suprailiaco (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.suprailiaco | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Suprailiaco (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.suprailiaco | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Abdominal (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.abdominal | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Abdominal (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.abdominal | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Muslo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.muslo | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Muslo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.muslo | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Pantorrilla (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pantorrilla | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Pantorrilla (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pantorrilla | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Muñeca (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pMuneca | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Muñeca (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pMuneca | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Cabeza (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pCabeza | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Cabeza (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pCabeza | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Diametro Biacromial (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.dBiacromial | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Diametro Biacromial (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.dBiacromial | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Diametro Biltiocristal (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.dBiltiocristal | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Diametro Biltiocristal (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.dBiltiocristal | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Diametro Humero (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.dHumero | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Diametro Humero (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.dHumero | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Diametro Femur (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.dFemur | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Diametro Femur (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.dFemur | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Brazo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pBrazo | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Brazo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pBrazo | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Antebrazo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.dAntebrazo | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Antebrazo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.dAntebrazo | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Pantorrilla (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pPantorrilla | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Pantorrilla (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pPantorrilla | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Caja Toraxica (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pCajaToraxica | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Caja Toraxica (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pCajaToraxica | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Muslo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pMuslo | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Muslo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pMuslo | number: '1.1-2'}}</td>
+                    </tr>
+                    
+                    <!-- <tr>
+                        <td scope="row" class="tlabel">Perimetro Cintura (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pCintura | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Cintura (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pCintura | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Perimetro Cadera (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pCadera | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Perimetro Cadera (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pCadera | number: '1.1-2'}}</td>
+                    </tr> -->
+    
+                </tbody>
+            </table>
+    
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="header">
+                        <th scope="col" colspan="2">Resultados</th>
+                        <th scope="col" class="space"></th>
+                        <th scope="col" colspan="2">Resultados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" class="tlabel">Sumatoria Pliegues (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.sumatoriaPliegues | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Sumatoria Pliegues (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.sumatoriaPliegues | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Porcentaje Grasa (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.porcentajeGrasa | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Porcentaje Grasa (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.porcentajeGrasa | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Peso Graso (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pesoGraso | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Peso Graso (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pesoGraso | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Peso Libre Grasa (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pesoLibreGrasa | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Peso Libre Grasa (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pesoLibreGrasa | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Masa Muscular (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.masaMuscular | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Masa Muscular (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.masaMuscular | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Peso Ideal (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pesoIdeal | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Peso Ideal (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pesoIdeal | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Indice de Masa Corporal</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.indiceMasaCorporal | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Indice de Masa Corporal</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.indiceMasaCorporal | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Complexión</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.complexion | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Complexión (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.complexion | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Tasa Metabolica Basal</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.tasaMetabolicaBasal | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Tasa Metabolica Basal</td>
+                        <td scope="row" class="center-col">
+                            {{valoracionSecond.medidas.tasaMetabolicaBasal | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Exceso de Peso (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.excesoPeso | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Exceso de Peso (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.excesoPeso | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Peso Óptimo (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.pesoOptimo | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Peso Óptimo (kg)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.pesoOptimo | number: '1.1-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">% Grasa Ideal</td>
+                        <td scope="row" class="center-col">
+                            {{valoracionFirst.medidas.porcentajeGrasaIdeal | number: '1.1-2'}}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">% Grasa Ideal</td>
+                        <td scope="row" class="center-col">
+                            {{valoracionSecond.medidas.porcentajeGrasaIdeal | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr class="header">
+                        <td scope="row" colspan="2" class="center-col">----------------------------------------------</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" colspan="2" class="center-col">----------------------------------------------</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">% Grasa</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.estadoPorcentajeGrasa }}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">% Grasa</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.estadoPorcentajeGrasa }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Complexión</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.estadoComplexion }}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Complexión</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.estadoComplexion }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Indice de Masa Corporal</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.estadoIndiceMasaCorporal }}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Indice de Masa Corporal</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.estadoIndiceMasaCorporal }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Riesgo cardiometabolico</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.riesgoCardioMetabolico }}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Riesgo cardiometabolico</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.riesgoCardioMetabolico }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Indice Cintura Cadera</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.indiceCinturaCadera }}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Indice Cintura Cadera</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.indiceCinturaCadera }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Razón Cintura Estatura</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.medidas.razonCinturaEstatura }}</td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Razón Cintura Estatura</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.medidas.razonCinturaEstatura }}</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="header">
+                        <th scope="col" colspan="2">Test de Sargent</th>
+                        <th scope="col" class="space"></th>
+                        <th scope="col" colspan="2">Test de Sargent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" class="tlabel">Embergadura (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.embergadura | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Embergadura (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.embergadura | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Salto Máximo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.saltoMaximo | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Salto Máximo (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.saltoMaximo | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Salto Real (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.testSargent.value | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Salto Real (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.testSargent.value | number: '1.1-2' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Resultado</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.testSargent.description}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Resultado</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.testSargent.description }}
+                        </td>
+                    </tr>
+    
+                </tbody>
+            </table>
+    
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="header">
+                        <th scope="col" colspan="2">Test de Rufier</th>
+                        <th scope="col" class="space"></th>
+                        <th scope="col" colspan="2">Test de Rufier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" class="tlabel">Primer Pulso (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.primerPulso | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Primer Pulso (cm)</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.primerPulso | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Segundo Pulso</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.segundoPulso | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Segundo Pulso</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.segundoPulso | number: '1.1-2'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Tercer Pulso</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.tercerPulso | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Tercer Pulso</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.tercerPulso | number: '1.1-2' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">I</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.testRufier.value | number: '1.1-2'}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">I</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.testRufier.value | number: '1.1-2' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="tlabel">Resultado</td>
+                        <td scope="row" class="center-col">{{valoracionFirst.tests.testRufier.description}}
+                        </td>
+                        <td scope="row" class="space"></td>
+                        <td scope="row" class="tlabel">Resultado</td>
+                        <td scope="row" class="center-col">{{valoracionSecond.tests.testRufier.description }}
+                        </td>
+                    </tr>
+    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="compare-footer">
+    <select id="tipoDocumento" class="form-control form-control-sm" [(ngModel)]="selectedFirst"
+        [ngModelOptions]="{standalone: true}">
+        <option selected [value]="item.id" *ngFor="let item of fechasFirst">
+            {{item.fecha | date: 'EEEE dd \'de\' MMMM, yyyy' | titlecase}}
+        </option>
+    </select>
+    <select id="tipoDocumento" class="form-control form-control-sm" [(ngModel)]="selectedSecond"
+        [ngModelOptions]="{standalone: true}">
+        <option selected [value]="item.id" *ngFor="let item of fechasSecond">
+            {{item.fecha | date: 'EEEE dd \'de\' MMMM, yyyy' | titlecase}}
+        </option>
+    </select>
+</div>

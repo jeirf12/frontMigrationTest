@@ -1,0 +1,16 @@
+<div class="header">
+    <img class="imagen-header" [src]="item.imagen ? urlImagen : './assets/img/evento_default.png'">
+    <div class="text-header">
+        <p>
+            <fa-icon [icon]="faMapMarkerAlt"></fa-icon>{{item.lugar}}
+        </p>
+        <p>
+            <fa-icon [icon]="faCalendarAlt"></fa-icon>{{item.fecha | date: 'EEEE dd \'de\' MMMM, yyyy' | titlecase}}
+        </p>
+    </div>
+    <fa-icon [icon]="faTimes" class="close-button" (click)="activeModal.dismiss('Cross click')"></fa-icon>
+</div>
+<div class="body">
+    <h6>{{item.titulo}}</h6>
+    <p>{{item.contenido}}</p>
+</div>

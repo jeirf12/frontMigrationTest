@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-7">
+            <button class="btn btn-success btn-fill" (click)="add()">
+                Agregar Grupo
+            </button>
+        </div>
+        <div class="col-5 my-auto">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-5">
+            <div class="form-group">
+                <label for="instructor">Filtrar por instructor</label>
+                <select id="instructor" class="form-control form-control-sm" [(ngModel)]="instructor.id"
+                    [ngModelOptions]="{standalone: true}">
+                    <option selected [value]="-1">Todos</option>
+                    <option [value]="item.id" *ngFor="let item of instructoresList">
+                        {{item.primerNombre + ' ' + item.primerApellido}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-7"></div>
+    </div>
+
+    <div class="row table-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Instructor</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="empty-table-msg" *ngIf="grupos.length === 0">
+                    <td colspan="5">
+                        No se encontraron datos para esta tabla.
+                    </td>
+                </tr>
+                <tr *ngFor="let grupo of grupos">
+                    <td scope="row" class="center-col">
+                        {{grupo.nombre}}
+                    </td>
+                    <td scope="row" class="center-col">
+                        {{grupo.instructor.primerNombre + ' ' + grupo.instructor.primerApellido}}
+                    </td>
+                    <td scope="row" class="center-col padding-sm">
+                        <button class="btn btn-primary btn-fill" (click)="view(grupo)" data-toggle="tooltip"
+                            data-placement="top" title="Ver">
+                            <fa-icon [icon]="faEye"></fa-icon>
+                        </button>
+                        <button class="btn btn-info btn-fill" (click)="update(grupo)" data-toggle="tooltip"
+                            data-placement="top" title="Editar">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>
+                        <button class="btn btn-danger btn-fill" (click)="delete(grupo)" data-toggle="tooltip"
+                            data-placement="top" title="Eliminar">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2" *ngIf="collectionSize > pageSize">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>
