@@ -15,8 +15,8 @@
 <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top bg-blue">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <fa-icon class="back-button" [icon]="faArrowLeft" (click)="goBack()" *ngIf="!routeInfo.show"></fa-icon>
-            <a class="navbar-brand">{{routeInfo.title}}</a>
+            <fa-icon class="back-button" [icon]="faArrowLeft" (click)="goBack()" *ngIf="!routeInfo?.show"></fa-icon>
+            <a class="navbar-brand">{{routeInfo?.title}}</a>
         </div>
 
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
