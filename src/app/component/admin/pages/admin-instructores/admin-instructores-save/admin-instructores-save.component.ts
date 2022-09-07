@@ -77,17 +77,17 @@ export class AdminInstructoresSaveComponent implements OnInit {
     this.submitted = true;
     if (this.validateForm()) {
       this.instructor.fechaNacimiento = DateUtil.structureToDate(this.fechaNacimiento);
-      this.instructoresService.save(this.instructor, this.isCreate).subscribe(response => {
+      this.instructoresService.save(this.instructor, this.isCreate).subscribe({next: ((response) => {
         if (response.success) {
           this.dialogsService.showToast(response.body, true);
           this.back();
         } else {
           this.dialogsService.showToast(response.body, false);
         }
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
         this.dialogsService.showToast("No se pudo " + (this.isCreate) ? "agregar" : "actualizar" + " el usuario, intente de nuevo", false);
-      });
+      })});
     } else {
       this.dialogsService.showToast("Debe completar los campos obligatorios", false);
     }

@@ -57,15 +57,15 @@ export class LoginComponent implements OnInit {
       const username = this.f.username.value;
       const password = this.f.password.value;
       this.authenticationService.authenticate(new JwtRequest(username, password))
-        .subscribe(response => {
+        .subscribe({next: ((response) => {
           this.isLogginFailed = !response;
           if (response) {
             this.router.navigate([this.returnUrl]);
           }
-        }, error => {
+        }), error: ((error) => {
           console.error("error", error);
           this.isLogginFailed = true;
-        });
+        })});
     }, 500);
 
   }

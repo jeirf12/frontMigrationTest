@@ -50,18 +50,18 @@ export class AdminRecursosNoticiasSaveComponent implements OnInit {
     if (this.validateForm()) {
       this.noticia.fechaCreacion = new Date();
       this.noticia.fechaCaducidad = DateUtil.structureToDate(this.fechaCaducidad);
-      this.noticiasService.save(this.noticia, this.isCreate).subscribe(response => {
+      this.noticiasService.save(this.noticia, this.isCreate).subscribe({next: ((response) => {
         if (response.success) {
           this.back();
           this.dialogsService.showToast(response.body, true);
         } else {
           this.dialogsService.showToast(response.body, false);
         }
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
         const msg = "No se pudo " + (this.isCreate) ? "agregar" : "actualizar" + " el noticia, intente de nuevo";
         this.dialogsService.showToast(msg, false);
-      });
+      })});
     } else {
       this.dialogsService.showToast("Debe completar los campos obligatorios", false);
     }

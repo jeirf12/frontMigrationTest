@@ -70,24 +70,22 @@ export class AdminDeportistasComponent implements OnInit {
     this.dependenciasList = this.publicsService.dependencias;
     this.dependencia.id = -1;
     this.programa.id = -1;
-    this.deportistasService.getAll().subscribe(
-      (response) => {
+    this.deportistasService.getAll().subscribe({
+      next: ((response) => {
         this.deportistasList = response;
         this.collectionSize = this.deportistasList.length;
-      },
-      (error) => {
+      }),
+      error: ((error) => {
         console.error("error", error);
-      }
-    );
-    this.instructoresService.getAll(true).subscribe(
-      (response) => {
+      })});
+    this.instructoresService.getAll(true).subscribe({
+      next: ((response) => {
         this.instructoresList = response;
         this.instructor.id = -1;
-      },
-      (error) => {
+      }),
+      error: ((error) => {
         console.error("error", error);
-      }
-    );
+      })});
   }
 
   get deportistas(): Deportista[] {
@@ -144,15 +142,14 @@ export class AdminDeportistasComponent implements OnInit {
       )
       .subscribe((confirmation: boolean) => {
         if (confirmation) {
-          this.deportistasService.delete(deportista.id).subscribe(
-            (response) => {
+          this.deportistasService.delete(deportista.id).subscribe({
+            next: ((response) => {
               this.dialogsService.showToast(response.body, true);
               this.loadData();
-            },
-            (error) => {
+            }),
+            error: ((error) => {
               console.error("error", error);
-            }
-          );
+            })});
         }
       });
   }

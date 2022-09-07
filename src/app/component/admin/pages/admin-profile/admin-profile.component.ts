@@ -54,12 +54,12 @@ export class AdminProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadHelperData();
-    this.instructoresService.getById(this.authenticationService.currentUser.id).subscribe(response => {
+    this.instructoresService.getById(this.authenticationService.currentUser.id).subscribe({next: ((response) => {
       this.instructor = response;
       this.fechaNacimiento = DateUtil.dateToStructure(this.instructor.fechaNacimiento);
-    }, error => {
+    }),error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   loadHelperData() {
@@ -71,17 +71,17 @@ export class AdminProfileComponent implements OnInit {
     this.submitted = true;
     if (this.validateForm()) {
       this.instructor.fechaNacimiento = DateUtil.structureToDate(this.fechaNacimiento);
-      this.instructoresService.save(this.instructor, false).subscribe(response => {
+      this.instructoresService.save(this.instructor, false).subscribe({next: ((response) => {
         if (response.success) {
           this.dialogsService.showToast(response.body, true);
           this.back();
         } else {
           this.dialogsService.showToast(response.body, false);
         }
-      }, error => {
+      }),error: ((error) => {
         console.error("error", error);
         this.dialogsService.showToast("No se pudo actualizar el perfil, intente de nuevo", false);
-      });
+      })});
     } else {
       this.dialogsService.showToast("Debe completar los campos obligatorios", false);
     }

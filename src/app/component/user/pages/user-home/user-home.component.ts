@@ -41,12 +41,12 @@ export class UserHomeComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private userDeportistaService: UserDeportistaService,
   ) {
-    this.userDeportistaService.getDeportistaById(this.authenticationService.currentUser.id).subscribe(response => {
+    this.userDeportistaService.getDeportistaById(this.authenticationService.currentUser.id).subscribe({next: ((response) => {
       this.deportista = response;
       this.loadData();
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class UserHomeComponent implements OnInit {
 
   loadData() {
     this.userDeportistaService.getAllValoraciones(this.deportista.id)
-      .subscribe(response => {
+      .subscribe({next: ((response) => {
         this.valoracionesList = response;
         this.collectionSize = this.valoracionesList.length;
         if (this.collectionSize > 0) {
@@ -65,9 +65,9 @@ export class UserHomeComponent implements OnInit {
         if (this.collectionSize > 1) {
           this.medidasAnteriores = this.valoracionesList[1].medidas;
         }
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   get valoraciones(): Valoracion[] {

@@ -37,12 +37,12 @@ export class AdminInstructoresComponent implements OnInit {
 
   loadData() {
     this.instructoresService.getAll(false)
-      .subscribe(response => {
+      .subscribe({next: ((response) => {
         this.instructoresList = response;
         this.collectionSize = this.instructoresList.length;
-      }, error => {
+      }),error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   get instructores(): Usuario[] {
@@ -77,12 +77,12 @@ export class AdminInstructoresComponent implements OnInit {
       .subscribe((confirmation: boolean) => {
         if (confirmation) {
           this.instructoresService.delete(instructor.id)
-            .subscribe(response => {
+            .subscribe({next: ((response) => {
               this.dialogsService.showToast(response.body, true);
               this.loadData();
-            }, error => {
+            }), error: ((error) => {
               console.error("error", error);
-            });
+            })});
         }
       });
   }

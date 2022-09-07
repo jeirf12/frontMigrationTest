@@ -68,7 +68,7 @@ export class UserProfileComponent implements OnInit {
     this.loadHelperData();
     this.datePickerConfig.minDate = DateUtil.dateToStructure(new Date(-946753200000));
     this.datePickerConfig.maxDate = DateUtil.dateToStructure(new Date());
-    this.userDeportistaService.getDeportistaById(this.authenticationService.currentUser.id).subscribe(response => {
+    this.userDeportistaService.getDeportistaById(this.authenticationService.currentUser.id).subscribe({next: ((response) => {
       this.deportista = response;
       this.info = this.deportista.info;
       this.fechaNacimiento = DateUtil.dateToStructure(this.info.fechaNacimiento);
@@ -97,9 +97,9 @@ export class UserProfileComponent implements OnInit {
           });
         });
       }
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   ngOnInit() {
@@ -117,16 +117,16 @@ export class UserProfileComponent implements OnInit {
     let query = this.deportista.conyugue.info.documento;
     if (query && query.length > 6) {
       this.userDeportistaService.getDeportistaByDocumento(query)
-        .subscribe(response => {
+        .subscribe({next: ((response) => {
           if (response) {
             this.deportista.conyugue = response;
             this.nombreConyugue = this.deportista.conyugue.info.primerNombre + " " + this.deportista.conyugue.info.primerApellido;
           } else {
             this.nombreConyugue = "«El funcionario no existe»";
           }
-        }, error => {
+        }), error: ((error) => {
           this.nombreConyugue = "«El funcionario no existe»";
-        });
+        })});
     } else {
       this.nombreConyugue = "«Ingresa el documento»";
     }
@@ -168,18 +168,18 @@ export class UserProfileComponent implements OnInit {
       this.info.fechaNacimiento = DateUtil.structureToDate(this.fechaNacimiento);
       this.deportista.info = this.info;
       this.validateInfoBeforeSave();
-      this.userDeportistaService.saveProfile(this.deportista).subscribe(response => {
+      this.userDeportistaService.saveProfile(this.deportista).subscribe({next: ((response) => {
         if (response.success) {
           this.dialogsService.showToast(response.body, true);
           this.back();
         } else {
           this.dialogsService.showToast(response.body, false);
         }
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
         const msg = "No se pudo actualizar el perfil, intente de nuevo";
         this.dialogsService.showToast(msg, false);
-      });
+      })});
     } else {
       this.dialogsService.showToast("Debe completar los campos obligatorios", false);
     }

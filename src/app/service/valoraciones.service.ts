@@ -7,10 +7,6 @@ import { Valoracion } from '../model/entity/valoracion';
 import { ApiResponse } from '../model/response/api-response';
 import { ApiRequest } from '../model/request/api-request';
 import { Deportista } from '../model/entity/deportista';
-import { Medidas } from '../model/entity/medidas';
-import { Tests } from '../model/entity/tests';
-import { ThreeObjects } from '../model/three-objects';
-import { TwoObjects } from '../model/two-objects';
 
 @Injectable({
   providedIn: 'root'

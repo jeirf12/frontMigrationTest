@@ -60,34 +60,34 @@ export class AdminAsistenciaRegistroComponent implements OnInit {
   }
 
   loadData() {
-    this.deportistasService.getAll().subscribe(response => {
+    this.deportistasService.getAll().subscribe({next: ((response) => {
       this.deportistasList = response;
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
-    this.gruposService.getAll().subscribe(response => {
+    })});
+    this.gruposService.getAll().subscribe({next: ((response) => {
       this.gruposList = response;
       if (this.gruposList.length > 0) {
         this.grupoIndex = 0;
         this.onGrupoChange();
       }
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   save() {
     this.asistencia.fecha = DateUtil.structureToDate(this.fechaAsistencia);
-    this.asistenciaService.save(this.asistencia, this.isCreate).subscribe(response => {
+    this.asistenciaService.save(this.asistencia, this.isCreate).subscribe({next: ((response) => {
       if (response.success) {
         this.dialogsService.showToast(response.body, true);
         this.back();
       } else {
         this.dialogsService.showToast(response.body, false);
       }
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   back() {
@@ -104,14 +104,14 @@ export class AdminAsistenciaRegistroComponent implements OnInit {
 
   loadInscripcion() {
     this.inscripcionesService.getInscripcion(this.asistencia.inscripcion.mes,
-      this.asistencia.inscripcion.anio, this.gruposList[this.grupoIndex].id).subscribe(response => {
+      this.asistencia.inscripcion.anio, this.gruposList[this.grupoIndex].id).subscribe({next: ((response) => {
         if (response) {
           this.asistencia.inscripcion = response;
           this.inscripcionExists = true;
           const request = new TwoObjects<Date, number>();
           request.first = DateUtil.structureToDate(this.fechaAsistencia);
           request.second = this.asistencia.inscripcion.id;
-          this.asistenciaService.getAsistencia(request).subscribe(response => {
+          this.asistenciaService.getAsistencia(request).subscribe({next: ((response) => {
             if (response) {
               this.asistencia = response;
               this.isCreate = false;
@@ -120,16 +120,16 @@ export class AdminAsistenciaRegistroComponent implements OnInit {
               this.asistencia.observaciones = null;
               this.isCreate = true;
             }
-          }, error => {
+          }), error: ((error) => {
             console.error("error", error);
-          });
+          })});
         } else {
           this.asistencia.inscripcion.deportistas = [];
           this.inscripcionExists = false;
         }
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   onGrupoChange() {

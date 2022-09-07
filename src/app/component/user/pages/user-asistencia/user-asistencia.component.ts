@@ -26,17 +26,17 @@ export class UserAsistenciaComponent implements OnInit {
 
   ngOnInit(): void {
     this.userDeportistaService.getInscripcionesByDeportista(this.authenticationService.currentUser.id)
-      .subscribe(inscripcionResponse => {
+      .subscribe({next: ((inscripcionResponse) => {
         this.userDeportistaService.getAsistenciaByDeportista(this.authenticationService.currentUser.id)
-          .subscribe(asistenciaResponse => {
+          .subscribe({next: ((asistenciaResponse) => {
             this.inscripcionesList = inscripcionResponse;
             this.asistenciaList = this.getAllAsistencias(asistenciaResponse);
-          }, error => {
+          }), error: ((error) => {
             console.error("error", error);
-          });
-      }, error => {
+          })});
+      }), error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   getAllClassDaysOfMonth(inscripcion: Inscripcion): Date[] {

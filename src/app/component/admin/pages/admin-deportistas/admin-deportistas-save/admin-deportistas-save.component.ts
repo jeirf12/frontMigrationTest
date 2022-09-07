@@ -141,16 +141,16 @@ export class AdminDeportistasSaveComponent implements OnInit {
     let query = this.deportista.conyugue.info.documento;
     if (query && query.length > 6) {
       this.deportistasService.getByDocumento(query)
-        .subscribe(response => {
+        .subscribe({next: ((response) => {
           if (response) {
             this.deportista.conyugue = response;
             this.nombreConyugue = this.deportista.conyugue.info.primerNombre + " " + this.deportista.conyugue.info.primerApellido;
           } else {
             this.nombreConyugue = "«El funcionario no existe»";
           }
-        }, error => {
+        }), error: (() => {
           this.nombreConyugue = "«El funcionario no existe»";
-        });
+        })});
     } else {
       this.nombreConyugue = "«Ingresa el documento»";
     }
@@ -192,18 +192,19 @@ export class AdminDeportistasSaveComponent implements OnInit {
       this.info.fechaNacimiento = DateUtil.structureToDate(this.fechaNacimiento);
       this.deportista.info = this.info;
       this.validateInfoBeforeSave();
-      this.deportistasService.save(this.deportista, this.isCreate).subscribe(response => {
+      this.deportistasService.save(this.deportista, this.isCreate).subscribe({
+        next: ((response) => {
         if (response.success) {
           this.dialogsService.showToast(response.body, true);
           this.back();
         } else {
           this.dialogsService.showToast(response.body, false);
         }
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
         const msg = "No se pudo " + (this.isCreate) ? "agregar" : "actualizar" + " el usuario, intente de nuevo";
         this.dialogsService.showToast(msg, false);
-      });
+      })});
     } else {
       this.dialogsService.showToast("Debe completar los campos obligatorios", false);
     }

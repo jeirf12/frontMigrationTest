@@ -60,15 +60,15 @@ export class AdminValoracionesComponent implements OnInit {
 
   loadData() {
     this.valoracionesService.getAll(this.deportista.id)
-      .subscribe(response => {
+      .subscribe({next: ((response) => {
         this.valoracionesList = response;
         this.collectionSize = this.valoracionesList.length;
         if (this.collectionSize > 0) {
           this.medidas = this.valoracionesList[0].medidas;
         }
-      }, error => {
+      }),error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   get valoraciones(): Valoracion[] {
@@ -97,11 +97,11 @@ export class AdminValoracionesComponent implements OnInit {
       .subscribe((confirmation: boolean) => {
         if (confirmation) {
           this.valoracionesService.delete(valoracion.id)
-            .subscribe(response => {
+            .subscribe({next: (() => {
               this.loadData();
-            }, error => {
+            }),error: ((error) => {
               console.error("error", error);
-            });
+            })});
         }
       });
   }
@@ -123,15 +123,15 @@ export class AdminValoracionesComponent implements OnInit {
   }
 
   onClasificacionChange() {
-    this.deportistasService.save(this.deportista, false).subscribe(response => {
+    this.deportistasService.save(this.deportista, false).subscribe({next: ((response) => {
       if (response.success) {
         this.dialogsService.showToast(response.body, true);
       } else {
         this.dialogsService.showToast(response.body, false);
       }
-    }, error => {
+    }),error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
 }

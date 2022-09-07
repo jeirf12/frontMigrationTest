@@ -48,18 +48,18 @@ export class AdminRecursosEventosSaveComponent implements OnInit {
     this.submitted = true;
     if (this.validateForm()) {
       this.evento.fecha = DateUtil.structureToDate(this.fechaEvento);
-      this.eventosService.save(this.evento, this.isCreate).subscribe(response => {
+      this.eventosService.save(this.evento, this.isCreate).subscribe({next: ((response) => {
         if (response.success) {
           this.back();
           this.dialogsService.showToast(response.body, true);
         } else {
           this.dialogsService.showToast(response.body, false);
         }
-      }, error => {
+      }),error: ((error) => {
         console.error("error", error);
         const msg = "No se pudo " + (this.isCreate) ? "agregar" : "actualizar" + " el evento, intente de nuevo";
         this.dialogsService.showToast(msg, false);
-      });
+      })});
     } else {
       this.dialogsService.showToast("Debe completar los campos obligatorios", false);
     }

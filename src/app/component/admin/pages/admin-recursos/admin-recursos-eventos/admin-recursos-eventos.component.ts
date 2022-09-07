@@ -38,12 +38,12 @@ export class AdminRecursosEventosComponent implements OnInit {
 
   loadData() {
     this.eventosService.getAll()
-      .subscribe(response => {
+      .subscribe({next: ((response) => {
         this.eventosList = response;
         this.collectionSize = this.eventosList.length;
-      }, error => {
+      }),error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   get eventos(): Evento[] {
@@ -75,11 +75,11 @@ export class AdminRecursosEventosComponent implements OnInit {
       .subscribe((confirmation: boolean) => {
         if (confirmation) {
           this.eventosService.delete(evento.id)
-            .subscribe(response => {
+            .subscribe({next: (() => {
               this.loadData();
-            }, error => {
+            }), error: (error => {
               console.error("error", error);
-            });
+            })});
         }
       });
   }

@@ -59,15 +59,15 @@ export class AdminAsistenciaExportarComponent implements OnInit {
     this.dependenciasList = this.publicsService.dependencias;
     this.dependencia.id = -1;
     this.programa.id = -1;
-    this.gruposService.getAll().subscribe(response => {
+    this.gruposService.getAll().subscribe({next: ((response) => {
       this.gruposList = response;
       if (this.gruposList.length > 0) {
         this.grupoIndex = 0;
         this.loadReporte();
       }
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   loadReporte() {
@@ -76,61 +76,61 @@ export class AdminAsistenciaExportarComponent implements OnInit {
       switch (this.tipoReporte) {
         case "Anual":
           this.reportesService.getReporteAnualAsistencia(this.year, this.gruposList[this.grupoIndex].id,
-            this.dependencia.id, this.programa.id).subscribe(response => {
+            this.dependencia.id, this.programa.id).subscribe({next: ((response) => {
               this.reportes = response;
-            }, error => {
+            }), error: ((error) => {
               console.error("error", error);
-            });
+            })});
           this.reportesService.getReporteAnualAsistenciaFile(this.year, this.gruposList[this.grupoIndex].id,
-            this.dependencia.id, this.programa.id).subscribe(response => {
+            this.dependencia.id, this.programa.id).subscribe({next: ((response) => {
               this.showLoader = false;
               if (response) {
                 this.file = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
               } else {
                 this.file = null;
               }
-            }, error => {
+            }), error: ((error) => {
               console.error("Error", error);
-            });
+            })});
           break;
         case "Semestral":
           this.reportesService.getReporteAnualAsistencia(this.year, this.gruposList[this.grupoIndex].id,
-            this.dependencia.id, this.programa.id).subscribe(response => {
+            this.dependencia.id, this.programa.id).subscribe({next: ((response) => {
               this.reportes = response;
-            }, error => {
+            }), error: ((error) => {
               console.error("error", error);
-            });
+            })});
           const semestre = (this.semester.split("-")[1] == "I") ? 1 : 2;
           this.reportesService.getReporteSemestralAsistenciaFile(this.year, semestre, this.gruposList[this.grupoIndex].id,
-            this.dependencia.id, this.programa.id).subscribe(response => {
+            this.dependencia.id, this.programa.id).subscribe({next: ((response) => {
               this.showLoader = false;
               if (response) {
                 this.file = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
               } else {
                 this.file = null;
               }
-            }, error => {
+            }), error: ((error) => {
               console.error("Error", error);
-            });
+            })});
           break;
         case "Mensual":
           this.reportesService.getReporteMensualAsistencia(this.year, this.month, this.gruposList[this.grupoIndex].id,
-            this.dependencia.id, this.programa.id).subscribe(response => {
+            this.dependencia.id, this.programa.id).subscribe({next: ((response) => {
               this.reportesMensual = response;
-            }, error => {
+            }), error: ((error) => {
               console.error("error", error);
-            });
+            })});
           this.reportesService.getReporteMensualAsistenciaFile(this.year, this.month, this.gruposList[this.grupoIndex].id,
-            this.dependencia.id, this.programa.id).subscribe(response => {
+            this.dependencia.id, this.programa.id).subscribe({next: ((response) => {
               this.showLoader = false;
               if (response) {
                 this.file = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
               } else {
                 this.file = null;
               }
-            }, error => {
+            }), error: ((error) => {
               console.error("Error", error);
-            });
+            })});
           break;
       }
 

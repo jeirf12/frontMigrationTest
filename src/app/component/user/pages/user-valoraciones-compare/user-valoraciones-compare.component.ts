@@ -28,25 +28,25 @@ export class UserValoracionesCompareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userDeportistaService.getDeportistaById(this.authenticationService.currentUser.id).subscribe(response => {
+    this.userDeportistaService.getDeportistaById(this.authenticationService.currentUser.id).subscribe({next: ((response) => {
       this.deportista = response;
       this.loadData();
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   loadData() {
     this.userDeportistaService.getAllValoraciones(this.deportista.id)
-      .subscribe(response => {
+      .subscribe({next: ((response) => {
         this.valoracionesList = response;
         this.selectedFirst = this.valoracionesList[0].id;
         this.loadValoracion(this.selectedFirst);
         this.selectedSecond = this.valoracionesList[1].id;
         this.loadValoracion(this.selectedSecond, false);
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   get fechasFirst(): Valoracion[] {
@@ -66,7 +66,7 @@ export class UserValoracionesCompareComponent implements OnInit {
   }
 
   loadValoracion(valoracionId: number, isFirst: boolean = true) {
-    this.userDeportistaService.getValoracionById(valoracionId).subscribe(response => {
+    this.userDeportistaService.getValoracionById(valoracionId).subscribe({next: ((response) => {
       if (isFirst) {
         this.valoracionFirst.medidas.setAllData(response.medidas, this.deportista.info.genero);
         this.valoracionFirst.tests.setAllData(response.tests, this.deportista.info.genero);
@@ -74,9 +74,9 @@ export class UserValoracionesCompareComponent implements OnInit {
         this.valoracionSecond.medidas.setAllData(response.medidas, this.deportista.info.genero);
         this.valoracionSecond.tests.setAllData(response.tests, this.deportista.info.genero);
       }
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
 }

@@ -73,7 +73,7 @@ export class AdminAsistenciaReportesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   validateFiltros(): boolean {
@@ -91,20 +91,20 @@ export class AdminAsistenciaReportesComponent implements OnInit {
       request.programaId = (this.filtroReporte.programaId !== -1) ? this.filtroReporte.programaId : null;
       request.tipoDeportista = (this.filtroReporte.tipoDeportista !== "") ? this.filtroReporte.tipoDeportista : null;
       request.clasificacion = (this.filtroReporte.clasificacion !== "") ? this.filtroReporte.clasificacion : null;
-      this.reportesService.getEspecifico(request).subscribe(response => {
+      this.reportesService.getEspecifico(request).subscribe({next: ((response) => {
         console.log(response);
         this.especificoInscripciones.setChartDataSet(DataReporte.buildChartDataSet(response.inscripciones));
         this.especificoAsistencia.setChartDataSet(DataReporte.buildChartDataSet(response.asistencia));
         this.showCharts = true;
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
-      });
+      })});
     } else {
       this.reporteEspecifico = false;
       const request = new TwoObjects<Date, Date>();
       request.first = DateUtil.structureToDate(this.fechaDesde);
       request.second = DateUtil.structureToDate(this.fechaHasta);
-      this.reportesService.getGeneral(request).subscribe(response => {
+      this.reportesService.getGeneral(request).subscribe({next: ((response) => {
         console.log(response);
         this.generalInscripciones.setChartDataSet(DataReporte.buildChartDataSet(response.general.inscripciones));
         this.generalAsistencia.setChartDataSet(DataReporte.buildChartDataSet(response.general.asistencia));
@@ -126,9 +126,9 @@ export class AdminAsistenciaReportesComponent implements OnInit {
         this.programaAsistencia.setChartDataSet(DataReporte.buildChartDataSet(response.programa.asistencia));
 
         this.showCharts = true;
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
-      });
+      })});
     }
   }
 

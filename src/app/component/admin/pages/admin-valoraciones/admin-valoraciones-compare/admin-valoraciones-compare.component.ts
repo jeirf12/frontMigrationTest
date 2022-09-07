@@ -32,15 +32,15 @@ export class AdminValoracionesCompareComponent implements OnInit {
 
   loadData() {
     this.valoracionesService.getAll(this.deportista.id)
-      .subscribe(response => {
+      .subscribe({next: ((response) => {
         this.valoracionesList = response;
         this.selectedFirst = this.valoracionesList[0].id;
         this.loadValoracion(this.selectedFirst);
         this.selectedSecond = this.valoracionesList[1].id;
         this.loadValoracion(this.selectedSecond, false);
-      }, error => {
+      }),error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   get fechasFirst(): Valoracion[] {
@@ -60,7 +60,7 @@ export class AdminValoracionesCompareComponent implements OnInit {
   }
 
   loadValoracion(valoracionId: number, isFirst: boolean = true) {
-    this.valoracionesService.getById(valoracionId).subscribe(response => {
+    this.valoracionesService.getById(valoracionId).subscribe({next: ((response) => {
       if (isFirst) {
         this.valoracionFirst.medidas.setAllData(response.medidas, this.deportista.info.genero);
         this.valoracionFirst.tests.setAllData(response.tests, this.deportista.info.genero);
@@ -68,9 +68,9 @@ export class AdminValoracionesCompareComponent implements OnInit {
         this.valoracionSecond.medidas.setAllData(response.medidas, this.deportista.info.genero);
         this.valoracionSecond.tests.setAllData(response.tests, this.deportista.info.genero);
       }
-    }, error => {
+    }),error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
 }

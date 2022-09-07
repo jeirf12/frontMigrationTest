@@ -17,9 +17,6 @@ import { LoginComponent } from './component/common/login/login.component';
 
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
-import localeEsExtra from '@angular/common/locales/extra/es';
 import { RouterModule } from '@angular/router';
 import { AdminModule } from './component/admin/admin.module';
 import { DialogConfirmComponent } from './component/common/dialog/dialog-confirm/dialog-confirm.component';

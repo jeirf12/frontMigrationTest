@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AbrevEnum } from '../model/enums/abrev-enum';
-import { ApiResponse } from '../model/response/api-response';
 import { SimpleEnum } from '../model/enums/simple-enum';
 import { Enums } from '../model/Enums';
 import { SimpleEnumCheck } from '../model/simple-enum-check';

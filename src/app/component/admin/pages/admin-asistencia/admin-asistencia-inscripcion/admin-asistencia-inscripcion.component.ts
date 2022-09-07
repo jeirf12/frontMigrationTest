@@ -57,25 +57,25 @@ export class AdminAsistenciaInscripcionComponent implements OnInit {
   }
 
   loadData() {
-    this.deportistasService.getAll().subscribe(response => {
+    this.deportistasService.getAll().subscribe({next: ((response) => {
       this.deportistasList = response;
       this.collectionSize = this.deportistasList.length;
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
-    this.gruposService.getAll().subscribe(response => {
+    })});
+    this.gruposService.getAll().subscribe({next: ((response) => {
       this.gruposList = response;
       if (this.gruposList.length > 0) {
         this.grupoIndex = 0;
         this.loadInscripcion();
       }
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   loadInscripcion() {
-    this.inscripcionesService.getInscripcion(this.inscripcion.mes, this.inscripcion.anio, this.gruposList[this.grupoIndex].id).subscribe(response => {
+    this.inscripcionesService.getInscripcion(this.inscripcion.mes, this.inscripcion.anio, this.gruposList[this.grupoIndex].id).subscribe({next: ((response) => {
       this.deportistasSelectedList = [];
       if (response) {
         this.inscripcion = response;
@@ -84,9 +84,9 @@ export class AdminAsistenciaInscripcionComponent implements OnInit {
       } else {
         this.isCreate = true;
       }
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   save() {
@@ -96,16 +96,16 @@ export class AdminAsistenciaInscripcionComponent implements OnInit {
       this.deportistasSelectedList.forEach(deportista => {
         this.inscripcion.deportistas.push(deportista.id.toString());
       });
-      this.inscripcionesService.save(this.inscripcion, this.isCreate).subscribe(response => {
+      this.inscripcionesService.save(this.inscripcion, this.isCreate).subscribe({next: ((response) => {
         if (response.success) {
           this.dialogsService.showToast(response.body, true);
           this.back();
         } else {
           this.dialogsService.showToast(response.body, false);
         }
-      }, error => {
+      }), error: ((error) => {
         console.error("error", error);
-      });
+      })});
     } else {
       this.dialogsService.showToast("debe agregar deportistas para hacer la inscripción", false);
     }

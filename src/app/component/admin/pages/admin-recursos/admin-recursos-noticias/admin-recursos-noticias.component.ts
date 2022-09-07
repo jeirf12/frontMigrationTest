@@ -38,12 +38,12 @@ export class AdminRecursosNoticiasComponent implements OnInit {
 
   loadData() {
     this.noticiasService.getAll()
-      .subscribe(response => {
+      .subscribe({next: ((response) => {
         this.noticiasList = response;
         this.collectionSize = this.noticiasList.length;
-      }, error => {
+      }),error: ((error) => {
         console.error("error", error);
-      });
+      })});
   }
 
   get noticias(): Noticia[] {
@@ -75,11 +75,11 @@ export class AdminRecursosNoticiasComponent implements OnInit {
       .subscribe((confirmation: boolean) => {
         if (confirmation) {
           this.noticiasService.delete(noticia.id)
-            .subscribe(response => {
+            .subscribe({next: (() => {
               this.loadData();
-            }, error => {
+            }),error: ((error) => {
               console.error("error", error);
-            });
+            })});
         }
       });
   }

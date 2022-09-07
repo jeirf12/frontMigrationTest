@@ -58,17 +58,17 @@ export class HomeComponent implements OnInit {
   }
 
   loadData() {
-    this.publicsService.getLastEventsAndNews().subscribe(response => {
+    this.publicsService.getLastEventsAndNews().subscribe({next: ((response) => {
       this.eventosList = response.first;
       this.noticiasList = response.second;
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
-    this.publicsService.getCurrentHorario().subscribe(response => {
+    })});
+    this.publicsService.getCurrentHorario().subscribe({next: ((response) => {
       this.currentHorario = response;
-    }, error => {
+    }), error: ((error) => {
       console.error("error", error);
-    });
+    })});
   }
 
   goToLogin() {
